@@ -15,11 +15,12 @@
 ##' Binomial Population sensitivity
 ##' @description Calculates population sensitivity for detecting disease,
 ##'   assuming imperfect test sensitivity and specificity and representative sampling,
-##'   using binomial distribution (assumes large or unknown population size) 
-##' @param n integer scalar or vector of number tested (sample size)
-##' @param pstar scalar or vector of design prevalence as proportion
-##' @param se unit sensitivity of test (proportion), default = 1
-##' @param sp unit specificity of test (proportion), default = 1
+##'   using binomial distribution (assumes large or unknown population size and that 
+##'   cut-point number of reactors for a positive result = 1) 
+##' @param n sample size = number of units tested (integer), scalar or vector  
+##' @param pstar design prevalence as a proportion (scalar or vector of same length as n)
+##' @param se unit sensitivity of test (proportion), default = 1 (scalar or vector of same length as n)
+##' @param sp unit specificity of test (proportion), default = 1 (scalar or vector of same length as n)
 ##' @return vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -37,11 +38,11 @@ sep.binom<- function(n, pstar, se = 1, sp = 1) {
 
 ##' Population sensitivity for census (all units tested)
 ##' @description Calculates population sensitivity for detecting disease
-##'   assuming imperfect test sensitivity and perfect (100%) test specificity
+##'   assuming imperfect test sensitivity, perfect test specificity
 ##'   and a census of all units in the population
-##' @param se unit sensitivity of test (proportion)
-##' @param d expected number of infected units in population (=pstar*N
-##'   rounded to next integer)
+##' @param se unit sensitivity of test (proportion), scalar or vector
+##' @param d expected number of infected units in population (=design prevalence*N
+##'   rounded to next integer), scalar or vector of same length as se
 ##' @return vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -60,14 +61,14 @@ sep.exact<- function(d=1, se = 1) {
 
 ##' Hypergeometric Population sensitivity
 ##' @description Calculates population sensitivity for detecting disease,
-##'   assuming imperfect test sensitivity and perfect (100%) test specificity 
+##'   assuming imperfect test sensitivity, perfect test specificity 
 ##'   and representative sampling,
-##'   using hypergeometric approximation (assumes known population size), 
-##' @param N population size
-##' @param n sample size (tested)
-##' @param d expected number of infected units in population (=pstar*N 
+##'   using hypergeometric approximation (assumes known population size) 
+##' @param N population size, scalar or vector of same length as n
+##' @param n sample size (number tested), scalar or vector
+##' @param d expected number of infected units in population (=design prevalence*N 
 ##'   rounded to next integer)
-##' @param se unit sensitivity of test (proportion)
+##' @param se unit sensitivity of test (proportion), scalar or vector of same length as n
 ##' @return a vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -87,17 +88,17 @@ sep.hypergeo<- function(N, n, d, se = 1) {
 
 ##' Population specificity
 ##' @description Calculates population specificity assuming representative sampling
-##' @param n integer scalar or vector of number tested
-##' @param sp unit specificity of test (proportion)
+##' @param n sample size (number tested), integer, scalar or vector  
+##' @param sp unit specificity of test (proportion), scalar or vector of same length as n
 ##' @return a vector of population-level specificities
 ##' @keywords methods
 ##' @export
 ##' @examples 
-##' # examples for sph - checked
-##' sph(10, 0.9)
-##' sph(c(10, 20, 50, 100), 0.99)
-##' sph(100, c(0.999, 0.99, 0.98, 0.95, 0.9))
-sph<- function(n, sp) {
+##' # examples for spp - checked
+##' spp(10, 0.9)
+##' spp(c(10, 20, 50, 100), 0.99)
+##' spp(100, c(0.999, 0.99, 0.98, 0.95, 0.9))
+spp<- function(n, sp) {
   sph<- sp^n
   return(sph)
 } # end of sph function
@@ -106,12 +107,13 @@ sph<- function(n, sp) {
 ##' Population sensitivity 
 ##' @description Calculates population sensitivity using appropriate method,
 ##'   depending on whether or not N provided (hypergeometric if N provided, 
-##'   binomial otherwise), assuming perfect (100%) 
+##'   binomial otherwise), assuming perfect 
 ##'   test specificity and representative sampling
-##' @param N vector of population sizes: NA or vector of same length as n
-##' @param n vector of sample sizes
-##' @param pstar design prevalence: single value as a proportion or integer
-##' @param se unit sensitivity: single value or vector same lengthh as n
+##' @param N population size, NA or vector of same length as n
+##' @param n sample size (number tested), scalar or vector
+##' @param pstar design prevalence as a proportion or integer, scalar
+##'   or vector of same length as n
+##' @param se unit sensitivity, scalar or vector of same length as n
 ##' @return a vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -167,15 +169,15 @@ sep<- function(N = NA, n, pstar, se=1) {
 
 
 ##' Population sensitivity for varying unit sensitivity
-##' @description calculates population-level sensitivity where unit sensitivity 
+##' @description Calculates population-level sensitivity where unit sensitivity 
 ##'   varies and using the appropriate method, depending on whether or not N provided 
-##'   (hypergeometric if N provided, binomial otherwise), assuming perfect (100%) 
+##'   (hypergeometric if N provided, binomial otherwise), assuming perfect 
 ##'   test specificity and representative sampling
-##' @param N population size (number of units or clusters, N >= length(se)) 
+##' @param N population size (number of units or clusters), N must be >= length(se)) 
 ##'   or NA if unknown
-##' @param se vector of unit sensitivity values
-##' @param pstar specified design prevalence
-##' @return a vector of population-level sensitivities
+##' @param se vector of unit sensitivity values (proportion) for each unit sampled
+##' @param pstar specified design prevalence (scalar)
+##' @return a scalar of population-level sensitivity
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -201,19 +203,21 @@ sep.var.se<- function(N=NA, se, pstar) {
 ##' 2-stage population sensitivity 
 ##' @description Calculates population-level (system) sensitivity for representative
 ##'   2-stage sampling (sampling of clusters and units within clusters), 
-##'   assuming imperfect test sensitivity, perfect (100%) test specificity 
-##' @param H population size = number of clusters or NA if not known, default = NA
-##' @param N population size within clusters NA if not provided,
-##'   otherwise a vector of same length as n, default = NA
+##'   assuming imperfect test sensitivity and perfect test specificity 
+##' @param H population size = number of clusters in the population, default = NA
+##' @param N population size within clusters,
+##'   scalar or a vector of same length as n, default = NA
 ##' @param n sample size (vector of number tested per cluster)
-##' @param se unit sensitivity of test (proportion), default = 1
-##' @param pstar.c cluster (herd) level design prevalence single value
-##' either proportion or integer
-##' @param pstar.u unit (animal) level design prevalence single value
-##' either proportion or integer
-##' @return vector of population-level sensitivities
-##' @note if pstar.c is not a proportion N must be entered 
-##' (and N>=n)
+##' @param se unit sensitivity of test (proportion), scalar, default = 1
+##' @param pstar.c cluster (herd) level design prevalence, scalar,
+##'   either proportion or integer
+##' @param pstar.u unit (animal) level design prevalence, scalar,
+##'   either proportion or integer
+##' @return list of 6 elements, 1) population level sensitivity, 2) vector of 
+##'   cluster-level sensitivities, 3) N, 4) n, 5) vector of design prevalences 
+##'   and 6) unit sensitivity 
+##' @note if pstar.c is not a proportion N must be provided 
+##'   (and N>=n)
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -258,11 +262,11 @@ sep.sys<- function(H=NA, N=NA, n, pstar.c, pstar.u, se=1) {
 ##' Binomial sample size
 ##'@description Calculates sample size for demonstrating freedom or 
 ##'   detecting disease using binomial approach and assuming 
-##'   imperfect test sensitivity, perfect (100%) test specificity and
+##'   imperfect test sensitivity, perfect test specificity and
 ##'   representative sampling
-##' @param sep desired population sensitivity
-##' @param pstar specified design prevalence
-##' @param se unit sensitivity
+##' @param sep desired population sensitivity (scalar or vector)
+##' @param pstar specified design prevalence (scalar or vector of same length as sep)
+##' @param se unit sensitivity, default = 1 (scalar or vector of same length as sep)
 ##' @return vector of sample sizes
 ##' @keywords methods
 ##' @export
@@ -279,13 +283,13 @@ n.binom<- function(sep, pstar, se = 1) {
 ##' Hypergeometric sample size
 ##'@description Calculates sample size for demonstrating freedom or 
 ##'   detecting disease using hypergeometric approximation and assuming 
-##'   imperfect test sensitivity, perfect (100%) test specificity and
+##'   imperfect test sensitivity, perfect test specificity and
 ##'   representative sampling
-##' @param N population size
-##' @param sep desired population sensitivity
-##' @param d expected number of infected units in population (=pstar*N
-##'   rounded to next integer)
-##' @param se unit sensitivity
+##' @param sep desired population sensitivity (scalar or vector)
+##' @param N population size (scalar or vector of same length as sep)
+##' @param d expected number of infected units in population, = design prevalence*N
+##'   rounded to next integer (scalar or vector of same length as sep)
+##' @param se unit sensitivity, default = 1 (scalar or vector of same length as sep)
 ##' @return vector of sample sizes, NA if n>N
 ##' @keywords methods
 ##' @export
@@ -307,12 +311,13 @@ n.hypergeo<- function(sep, N, d, se = 1) {
 ##' @description Calculates sample size for demonstrating freedom or 
 ##'   detecting disease using the appropriate method, depending on 
 ##'   whether or not N provided (hypergeometric if N provided, binomial otherwise), 
-##'   assuming imperfect test sensitivity, perfect (100%) test specificity 
+##'   assuming imperfect test sensitivity, perfect test specificity 
 ##'   and representative sampling
-##' @param N populaton size if known, scalar or vector
-##' @param sep desired population sensitivity
-##' @param pstar specified design prevalence (proportion or integer)
-##' @param se unit sensitivity
+##' @param N population size, default = NA (unknown) (scalar or vector of same length as sep)
+##' @param sep desired population sensitivity (scalar or vector)
+##' @param pstar specified design prevalence as proportion or integer 
+##'   (scalar or vector of same length as sep)
+##' @param se unit sensitivity (scalar or vector of same length as sep)
 ##' @return vector of sample sizes, NA if N is specified and n>N
 ##' @keywords methods
 ##' @export
@@ -351,15 +356,19 @@ n.freedom<- function(N=NA, sep=0.95, pstar,se=1) {
 ##' 2-stage freedom sample size
 ##' @description Calculates sample sizes for a 2-stage representative survey 
 ##'   (sampling of clusters and units within clusters) for disease freedom or detection,
-##'   assuming imperfect test sensitivity, perfect (100%) test specificity 
-##' @param H population size = number of clusters or NA if not known
-##' @param N populaton size if known, scalar or vector
-##' @param sep.sys desired population sensitivity
-##' @param sep.c desired cluster-level sensitivity
-##' @param pstar.c specified cluster-level design prevalence (proportion or integer)
-##' @param pstar.u specified population-level design prevalence (proportion or integer)
-##' @param se unit sensitivity
-##' @return a list of number of clusters to sample and sample size per cluster
+##'   assuming imperfect test sensitivity, perfect test specificity and representative sampling
+##' @param H population size = number of clusters or NA if not known, default = NA
+##' @param N population sizes for clusters, default = NA, scalar or 
+##'   vector of population sizes for clusters
+##' @param sep.sys desired population sensitivity (scalar)
+##' @param sep.c desired cluster-level sensitivity (scalar)
+##' @param pstar.c specified cluster-level design prevalence as 
+##'   proportion or integer (scalar) 
+##' @param pstar.u specified population-level design prevalence as 
+##'   proportion or integer (scalar)
+##' @param se unit sensitivity (scalar)
+##' @return a list of 2 elements, the number of clusters to sample and a vector of 
+##'   sample sizes per cluster
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -386,12 +395,12 @@ n.2stage<- function(H=NA, N=NA, sep.sys=0.95, sep.c, pstar.c, pstar.u, se=1) {
 ##' Design prevalence back-calculation
 ##' @description Calculates design prevalence required for given sample size and
 ##'   desired population-level sensitivity, assuming 
-##'   imperfect test sensitivity, perfect (100%) test specificity and
+##'   imperfect test sensitivity, perfect test specificity and
 ##'   representative sampling
-##' @param N populaton size if known, scalar or vector
-##' @param n sample size
-##' @param sep desired population sensitivity
-##' @param se unit sensitivity
+##' @param N populaton size if known (scalar or vector of same length as n)
+##' @param n sample size (scalar or vector)
+##' @param sep desired population sensitivity (scalar or vector of same length as n)
+##' @param se unit sensitivity (scalar or vector of same length as n)
 ##' @return vector of design prevalence values
 ##' @keywords methods
 ##' @export
@@ -432,12 +441,12 @@ pstar.calc<- function(N=NA, n, sep, se) {
 
 ##' Equilibrium probability of freedom
 ##' @description Calculates equilibrium probability of disease freedom and 
-##'   equilibrium prior probability of freedom, before discounting for,
+##'   equilibrium prior probability of freedom, after discounting for
 ##'   probability of introduction
 ##' @param sep population sensitivity for time period (scalar or
 ##'   vector)
 ##' @param p.intro probability of introduction for time period (scalar
-##'   or vector equal length to sep)
+##'   or vector of same length as sep)
 ##' @return a list of 2 vectors, equilibrium posterior probability of freedom 
 ##'   and equilibrium prior (discounted) probability of freedom
 ##' @keywords methods
@@ -457,11 +466,12 @@ pfree.equ<- function(sep, p.intro) {
 ##' Discounted prior probability of freedom
 ##' @description Calculates the discounted prior probability of disease freedom,
 ##'   after adjusting for the probability of disease exceeding the 
-##'   design prevalence during the time period
+##'   design prevalence during the time period of the surveillance data being analysed
 ##' @param prior prior probability of freedom before surveillance
-##' @param p.intro probability of introduction for time period (scalar
-##'   or vector equal length to sep)
-##' @return vector of discounted prior probability of freedom
+##' @param p.intro probability of introduction 
+##'   (or of prevalence exceeding the design prevalence) during the time period 
+##'   (scalar or vector equal length to prior)
+##' @return vector of discounted prior probabilities of freedom
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -481,8 +491,9 @@ disc.prior<- function(prior, p.intro) {
 ##' @param sep population sensitivity for time period (scalar or
 ##'   vector)
 ##' @param p.intro probability of introduction for time period (scalar
-##'   or vector equal length to sep)
-##' @param prior prior probability of freedom before surveillance
+##'   or vector of same length as sep)
+##' @param prior prior probability of freedom before surveillance (scalar
+##'   or vector of same length as sep)
 ##' @return \code{data.frame} with columns for sep, p.intro, discounted
 ##' prior, pfree, pfree.equ and prior.equ
 ##' @keywords methods
@@ -514,13 +525,13 @@ pfree.1<- function(sep, p.intro, prior=0.5) {
 ##' Probability of freedom over time
 ##' @description Calculates the probability (confidence) of disease freedom for 
 ##' given prior, sep and p.intro over 1 or more time periods
-##' @param sep population sensitivity for time period (scalar or
-##'   vector)
-##' @param p.intro probability of introduction for time period (scalar
-##'   or vector equal length to sep)
-##' @param prior prior probability of freedom before surveillance
+##' @param sep population sensitivity for each time period (vector)
+##' @param p.intro probability of introduction for each time period (scalar
+##'   or vector of same length as sep)
+##' @param prior prior probability of freedom before surveillance (scalar)
 ##' @return \code{data.frame} with columns for sep, p.intro, discounted
-##'   prior, pfree, pfree.equ and prior.equ
+##'   prior, probability of freedom, equilibrium probability of freedom
+##'   and equilibrium prior
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -596,12 +607,16 @@ sep.prior<- function(prior, p.intro) {
 ##' @description Calculates the sample size required to achieve a 
 ##'   given value for probability of disease freedom
 ##' @param pfree desired probability of freedom (scalar or vector)
-##' @param prior prior probability of freedom before surveillance
+##' @param prior prior probability of freedom before surveillance (scalar
+##'   or vector of same length as pfree)
 ##' @param p.intro probability of introduction for time period (scalar
-##' or vector equal length to sep)
-##' @param se unit sensitivity (scalar or vector)
-##' @param pstar design prevalence
-##' @param N population size
+##'   or vector of same length as pfree)
+##' @param se unit sensitivity (scalar
+##' or vector of same length as pfree)
+##' @param pstar design prevalence (scalar
+##' or vector of same length as pfree)
+##' @param N population size (scalar
+##' or vector of same length as pfree)
 ##' @return vector of sample sizes
 ##' @keywords methods
 ##' @export
