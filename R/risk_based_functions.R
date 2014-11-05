@@ -18,8 +18,10 @@
 
 ##' Adjusted risk
 ##' @description Calculates adjusted risk for given 
-##'   relative risk and population proportions
-##' @param rr relative risk values (vector)
+##'   relative risk and population proportions. This is an intermediate calculation
+##'   in the calculation of effective probability of infection for risk-based 
+##'   surveillance activities
+##' @param rr relative risk values (vector of values corresponding to the number of risk strata)
 ##' @param ppr population proportions corresponding to 
 ##'   rr values (vector of equal length to rr)
 ##' @return vector of adjusted risk values (in order corresponding to rr)
@@ -38,9 +40,10 @@ adj.risk<- function(rr, ppr) {
 
 ##' Effective probability of infection (EPI)
 ##' @description Calculates effective probability of infection (adjusted design prevalence)
-##'   for each risk group
-##' @param pstar design prevalence
-##' @param rr relative risk values (vector)
+##'   for each risk group for risk-based surveillance activities
+##' @param pstar design prevalence (scalar)
+##' @param rr relative risk values (vector of values corresponding to 
+##'   the number of risk strata)
 ##' @param ppr population proportions corresponding to rr values 
 ##'   (vector of equal length to rr)
 ##' @return list of 2 elements, a vector of EPI values and a vector of corresponding
@@ -60,17 +63,18 @@ epi.calc<- function(pstar, rr, ppr) {
 
 ##' Binomial risk-based population sensitivity
 ##' @description Calculates risk-based population sensitivity with a 
-##' single risk factor, using binomial method (assumes a large population)
+##'   single risk factor, using binomial method (assumes a large population),
+##'   allows for unit sensitivity to vary among risk strata
 ##' @param pstar design prevalence (scalar)
-##' @param rr relative risk values (vector)
+##' @param rr relative risk values (vector of values corresponding to the number of risk strata)
 ##' @param ppr population proportions corresponding to rr values 
 ##'   (vector of equal length to rr)
 ##' @param n sample size per risk category (vector same length as 
 ##'   rr and ppr)
-##' @param se unit sensitivity (fixed value or vector same length as 
-##'   rr, ppr, n)
+##' @param se unit sensitivity, can vary among risk strata (fixed value or 
+##'   vector same length as rr, ppr, n)
 ##' @return list of 3 elements, a scalar of population-level sensitivity
-##'   a vector of EPI values and a vector of corresponding Adjusted risks
+##'   a vector of EPI values and a vector of corresponding adjusted risks
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -90,17 +94,19 @@ sep.rb.bin<- function(pstar, rr, ppr, n, se) {
 ##' Hypergeometric risk-based population sensitivity
 ##' @description Calculates risk-based population sensitivity with a 
 ##'   single risk factor, using the hypergeometric method 
-##'   (assuming a finite and known population size)
+##'   (assuming a finite and known population size),
+##'   allows for unit sensitivity to vary among risk strata
 ##' @param pstar design prevalence (scalar)
-##' @param rr relative risk values (vector)
+##' @param rr relative risk values (vector of values corresponding 
+##'   to the number of risk strata)
 ##' @param n sample size per risk category (vector same length as 
 ##'   rr and ppr)
 ##' @param N Population size per risk category (vector same length 
 ##'   as rr and ppr)
-##' @param se unit sensitivity (fixed value or a vector the same 
+##' @param se unit sensitivity, can vary among risk strata (fixed value or a vector the same 
 ##'   length as rr, ppr, n)
 ##' @return list of 3 elements, a scalar of population-level sensitivity
-##'   a vector of EPI values and a vector of corresponding Adjusted risks
+##'   a vector of EPI values and a vector of corresponding adjusted risks
 ##' @keywords methods
 ##' @export
 ##' @examples 
@@ -122,14 +128,16 @@ sep.rb.hypergeo<- function(pstar, rr, N, n, se) {
 ##' @description Calculates population sensitivity for a single risk factor 
 ##'   and varying unit sensitivity using binomial method (assumes large population)
 ##' @param pstar design prevalence (scalar)
-##' @param rr relative risk values (vector)
+##' @param rr relative risk values (vector of values corresponding 
+##'   to the number of risk strata)
 ##' @param ppr population proportions corresponding to rr values 
 ##'   (vector of equal length to rr)
-##' @param df dataframe of values for each sensitivity level, 
+##' @param df dataframe of values for each combination of risk stratum and 
+##'   sensitivity level, 
 ##'   col 1 = risk group index, col 2 = unit Se, col 3 = n 
 ##'   (sample size for that risk group and unit sensitivity)
 ##' @return list of 3 elements, a scalar of population-level sensitivity
-##'   a vector of EPI values and a vector of corresponding Adjusted risks
+##'   a vector of EPI values and a vector of corresponding adjusted risks
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -170,12 +178,14 @@ sep.rb.bin.varse<- function(pstar, rr, ppr, df) {
 ##'   and varying unit sensitivity using hypergeometric approximation method 
 ##'   (assumes known population size)
 ##' @param pstar design prevalence (scalar)
-##' @param rr relative risk values (vector)
-##' @param N vector of population size corresponding to rr values 
+##' @param rr relative risk values (vector of values corresponding 
+##'   to the number of risk strata)
+##' @param N vector of population size for each risk group, corresponding to rr values 
 ##' (vector of equal length to rr)
-##' @param df dataframe of values for each sensitivity level 
+##' @param df dataframe of values for each combination of risk stratum and
+##'   sensitivity level, 
 ##'   col 1 = risk group index, col 2 = unit Se, col 3 = n 
-##'   (sample size for risk group and unt sensitivity)
+##'   (sample size for risk group and unit sensitivity)
 ##' @return list of 5 elements, a scalar of population-level sensitivity
 ##'   a vector of EPI values, a vector of corresponding Adjusted risks
 ##'   a vector of sample sizes (n) per risk group and a vector of 
@@ -225,16 +235,18 @@ sep.rb.hypergeo.varse<- function(pstar, rr, N, df) {
 ##' Binomial risk-based population sensitivity for 2 risk factors
 ##' @description Calculates risk-based population sensitivity for 
 ##'   two risk factors, using binomial method (assumes a large population)
-##' @param pstar design prevalence
-##' @param rr1 relative risks for first level risk factor
+##' @param pstar design prevalence (scalar)
+##' @param rr1 relative risks for first level risk factor (vector of values corresponding 
+##'   to the number of risk strata)
 ##' @param rr2 relative risks for second level risk factor, 
 ##'   matrix, rows = levels of rr1, cols = levels of rr2
-##' @param ppr1 population proportions for first level risk factor
+##' @param ppr1 population proportions for first level risk factor (vector of
+##'   same length as rr1)
 ##' @param ppr2 population proportions for second level 
 ##'   risk factor, matrix, rows = levels of rr1, cols = levels of rr2
 ##' @param n matrix of number tested for each risk group 
 ##'   (rows = levels of rr1, cols = levels of rr2)
-##' @param se test unit sensitivity
+##' @param se test unit sensitivity (scalar)
 ##' @return list of 4 elements, a scalar of population-level sensitivity
 ##'   a matrix of EPI values, a vector of corresponding Adjusted risks for
 ##'   the first risk factor and a matrix of adjusted risks for the second 
@@ -274,14 +286,16 @@ sep.rb2.binom<- function(pstar, rr1, ppr1, rr2, ppr2, n, se) {
 ##' @description Calculates risk-based population sensitivity for 
 ##'   two risk factors, using hypergeometric approximation method 
 ##'   (assumes a known population size)
-##' @param pstar design prevalence
-##' @param rr1 relative risks for first level risk factor 
-##' @param rr2 relative risks for second level risk factor
+##' @param pstar design prevalence (scalar)
+##' @param rr1 relative risks for first level risk factor (vector of values corresponding 
+##'   to the number of risk strata) 
+##' @param rr2 relative risks for second level risk factor, 
+##'   matrix, rows = levels of rr1, cols = levels of rr2
 ##' @param N matrix of population size for each risk group 
 ##'   (rows = levels of rr1, cols = levels of rr2)
 ##' @param n matrix of number tested (sample size) for each risk group 
 ##'   (rows = levels of rr1, cols = levels of rr2)
-##' @param se test unit sensitivity
+##' @param se test unit sensitivity (scalar)
 ##' @return list of 6 elements, a scalar of population-level sensitivity
 ##'   a matrix of EPI values, a vector of corresponding Adjusted risks for
 ##'   the first risk factor and a matrix of adjusted risks for the second risk factor,
@@ -325,25 +339,30 @@ sep.rb2.hypergeo<- function(pstar, rr1, rr2, N, n, se) {
 
 ##' Two-stage risk-based system sensitivity
 ##' @description Calculates system sensitivity for 2 stage risk-based 
-##'   sampling, using either binomial or hypergeometric approxiation
+##'   sampling, llowing for a single risk factor at each stage and
+##'   using either binomial or hypergeometric approxiation
 ##' @param C Population size (number of clusters), NA = unknown (default)
-##' @param pstar.c cluster level design prevalence
-##' @param pstar.u unit level design prevalence
-##' @param rr.c cluster level relative risks (vector), 
+##' @param pstar.c cluster level design prevalence (scalar)
+##' @param pstar.u unit level design prevalence (scalar)
+##' @param rr.c cluster level relative risks (vector with length 
+##'   corresponding to the number of risk strata), 
 ##'   use rr.c = c(1,1) if risk factor does not apply  
-##' @param rr.u unit level relative risks (vector), 
+##' @param rr.u unit level relative risks (vector with length 
+##'   corresponding to the number of risk strata), 
 ##'   use rr.u = c(1,1) if risk factor does not apply  
 ##' @param ppr.c cluster level population proportions for risk 
 ##'   categories (vector), NA if no cluster level risk factor
-##' @param N cluster sizes NA or matrix of N for each risk group 
-##'   for each cluster, N=NA means cluster sizes not provided)
-##' @param rg vector of cluster level risk group for each cluster
-##' @param n matrix, 1 row for each cluster, columns = unit level 
-##'   risk groups
-##' @param ppr.u matrix, 1 row for each cluster, columns = unit 
-##'   level risk groups
+##' @param N population size per risk group for each cluster, 
+##'   NA or matrix of N for each risk group 
+##'   for each cluster, N=NA means cluster sizes not provided
+##' @param rg vector of cluster level risk group (index) for each cluster
+##' @param n sample size per risk group for each cluster sampled,
+##'   matrix, 1 row for each cluster, columns = unit level risk groups
+##' @param ppr.u unit level population proportions for each risk group (optional) 
+##'   matrix, 1 row for each cluster, columns = unit level risk groups, 
+##'   not required if N is provided
 ##' @param se unit sensitivity for each cluster, scalar or 
-##'   vector of values for each cluster
+##'   vector of values for each cluster, equal in length to n
 ##' @return list of 2 elements, a scalar of population-level (surveillance system) 
 ##'   sensitivity and a vector of cluster-level sensitivities
 ##' @keywords methods
@@ -396,19 +415,21 @@ sse.rb.2stage<- function(C=NA, pstar.c, pstar.u, rr.c, ppr.c, rr.u, ppr.u, N=NA,
 }
 
 
-##' System sensitivity by combining multiple components
+##' System sensitivity by combining multiple surveillance components
 ##' @description Calculates overall system sensitivity for 
 ##'   multiple components, accounting for lack of independence 
 ##'   (overlap) between components
-##' @param C NA or vector of population sizes (number of clusters) 
-##'   for each risk group
-##' @param pstar.c cluster level design prevalence
-##' @param rr cluster level relative risks
-##' @param ppr cluster level population proportions 
-##'   (not required if C is specified)
-##' @param sep list of sep values for clusters in each component and 
-##'   corresponding risk group. Each element is a dataframe, 
-##'   first column= clusterid, 2nd =rg.c, 3rd col = sep
+##' @param C population sizes (number of clusters) for each risk group, 
+##' NA or vector of same length as rr
+##' @param pstar.c cluster level design prevalence (scalar)
+##' @param rr cluster level relative risks (vector, length 
+##'   equal to the number of risk strata)
+##' @param ppr cluster level population proportions (optional), 
+##'   not required if C is specified (NA or vector of same length as rr)
+##' @param sep sep values for clusters in each component and 
+##'   corresponding risk group. A list with multiple elements, each element 
+##'   is a dataframe of sep values from a separate component, 
+##'   first column= clusterid, 2nd =cluster-level risk group index, 3rd col = sep
 ##' @return list of 2 elements, a matrix (or vector if C not specified) 
 ##'   of population-level (surveillance system) 
 ##'   sensitivities (binomial and hypergeometric and adjusted vs unadjusted) and 
@@ -518,15 +539,15 @@ sse.combined<- function(C = NA, pstar.c, rr, ppr, sep) {
 ##' @description Calculates sample size for risk-based sampling 
 ##'   for a single risk factor and using binomial method
 ##' @param pstar design prevalence (scalar)
-##' @param rr relative risk values (vector)
+##' @param rr relative risk values (vector, length equal to the number of risk strata)
 ##' @param ppr population proportions corresponding to rr values 
-##'   (vector of equal length)
-##' @param spr surveillance proportion for each risk group 
+##'   (vector of equal length to rr)
+##' @param spr planned surveillance proportion for each risk group 
 ##'   (vector equal length to rr, ppr)
 ##' @param se unit sensitivity (fixed or vector same length as rr, ppr, n)
-##' @param sep required population sensitivity
+##' @param sep required population sensitivity (scalar)
 ##' @return list of 2 elements, a vector of sample sizes for each risk group
-##'   a scalar of total sample size, a vector od EPI values and a vector of
+##'   a scalar of total sample size, a vector of EPI values and a vector of
 ##'   adjusted risks 
 ##' @keywords methods
 ##' @export
@@ -553,18 +574,18 @@ n.rb<- function(pstar, rr, ppr, spr, se, sep) {
 ##' @description Calculates sample size for risk-based sampling 
 ##'   for a single risk factor and varying unit sensitivity, 
 ##'   using binomial method
-##' @param pstar design prevalence
-##' @param rr vector of relative risk values
-##' @param ppr vector of population proportions for each risk group,
-##'   same length as rr
-##' @param spr vector of surveillance proportions for each risk group,
-##'   same length as rr
-##' @param se vector of sensitivity values
-##' @param spr.rg matrix of proportions of samples for each sensitivity value 
-##'   in each risk group (rows - risk groups, columns = sensitivity values),
+##' @param pstar design prevalence (scalar)
+##' @param rr relative risk values (vector, length equal to the number of risk strata)
+##' @param ppr population proportions for each risk group,
+##'   vector of same length as rr
+##' @param spr planned surveillance proportions for each risk group,
+##'   vector of same length as rr
+##' @param se unit sensitivities (vector of group values)
+##' @param spr.rg proportions of samples for each sensitivity value 
+##'   in each risk group (matrix with rows = risk groups, columns = sensitivity values),
 ##'   row sums must equal 1
-##' @param sep required population sensitivity
-##' @return list of 3 elements, a smatrix of sample sizes for each risk 
+##' @param sep required population sensitivity (scalar)
+##' @return list of 3 elements, a matrix of sample sizes for each risk 
 ##'   and sensitivity group, a vector of EPI values and a vector of 
 ##'   mean sensitivity for each risk group
 ##' @keywords methods

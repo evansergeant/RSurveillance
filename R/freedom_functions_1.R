@@ -7,7 +7,7 @@
 # sep.binom
 # sep.hypergeo
 # sep.exact
-# sph
+# spp
 # sep
 # sep.var.se
 # sep.sys
@@ -101,7 +101,7 @@ sep.hypergeo<- function(N, n, d, se = 1) {
 spp<- function(n, sp) {
   sph<- sp^n
   return(sph)
-} # end of sph function
+} # end of spp function
 
 
 ##' Population sensitivity 
@@ -638,6 +638,8 @@ n.pfree<- function(pfree, prior, p.intro, pstar, se, N = NA) {
 ###########################################################################
 # se.series
 # se.parallel
+# sp.series
+# sp.parallel
 
 ##' Sensitivity of tests in series
 ##' @description Calculates the combined sensitivity for multiple tests 
@@ -650,8 +652,8 @@ n.pfree<- function(pfree, prior, p.intro, pstar, se, N = NA) {
 ##' # examples for se.series
 ##' se.series(c(0.99, 0.95, 0.8))
 se.series<- function(se) {
-  se.par<- prod(se)
-  return(se.par)
+  se.comb<- prod(se)
+  return(se.comb)
 }
 
 
@@ -666,10 +668,40 @@ se.series<- function(se) {
 ##' # examples for se.parallel
 ##' se.parallel(c(0.99, 0.95, 0.8))
 se.parallel<- function(se) {
-  se.par<- 1 - prod(1-se)
-  return(se.par)
+  se.comb<- 1 - prod(1-se)
+  return(se.comb)
 }
 
+##' Specficity of tests in series
+##' @description Calculates the combined specificity for multiple tests 
+##'   interpreted in series (assuming independence)
+##' @param sp vector of unit specificity values
+##' @return scalar of combined specificity, assuming independence
+##' @keywords methods
+##' @export
+##' @examples 
+##' # examples for sp.series
+##' sp.series(c(0.99, 0.95, 0.8))
+sp.series<- function(sp) {
+  sp.comb<- 1 - prod(1 - sp)
+  return(sp.comb)
+}
+
+
+##' Specificity of tests in parallel
+##' @description Calculates the combined specificity for multiple tests 
+##'   interpreted in parallel (assuming independence)
+##' @param sp vector of unit specificity values
+##' @return scalar of combined specificity, assuming independence
+##' @keywords methods
+##' @export
+##' @examples 
+##' # examples for sp.parallel
+##' sp.parallel(c(0.99, 0.95, 0.8))
+sp.parallel<- function(sp) {
+  sp.comb<- prod(sp)
+  return(sp.comb)
+}
 
 ############################################################################
 # pooled sampling (see Christensen & Gardner (2000). Herd-level interpretation of test results for
@@ -679,13 +711,14 @@ se.parallel<- function(se) {
 # n.pooled
 
 ##' Pooled population sensitivity
-##' @description Calculates population sensitivity assuming pooled sampling
+##' @description Calculates population sensitivity (sep) and population specificity (spp)
+##'   assuming pooled sampling
 ##'   and allowing for imperfect sensitivity and specificity of the pooled test
 ##' @param r number of pools sampled (scalar or vector)
-##' @param k pool size (constant)  (scalar or vector)
-##' @param pstar design prevalence
-##' @param pse pool-level sensitivity
-##' @param psp pool-level specificity
+##' @param k pool size (scalar or vector of same length as r)
+##' @param pstar design prevalence (scalar or vector of same length as r)
+##' @param pse pool-level sensitivity (scalar or vector of same length as r)
+##' @param psp pool-level specificity (scalar or vector of same length as r)
 ##' @return list of 2 elements, vector of sep values and vector of spp
 ##'   values
 ##' @keywords methods
@@ -708,10 +741,10 @@ sep.pooled<- function(r, k, pstar, pse, psp=1) {
 ##'   population-level sensitivity, assuming pooled sampling
 ##'   and allowing for imperfect sensitivity and specificity of the pooled test
 ##' @param sep desired population sensitivity (scalar or vector)
-##' @param k pool size (constant)  (scalar or vector)
-##' @param pstar design prevalence
-##' @param pse pool-level sensitivity
-##' @param psp pool-level specificity
+##' @param k pool size (constant across pools) (scalar or vector of same length as sep)
+##' @param pstar design prevalence (scalar or vector of same length as sep)
+##' @param pse pool-level sensitivity (scalar or vector of same length as sep)
+##' @param psp pool-level specificity (scalar or vector of same length as sep)
 ##' @return vector of sample sizes
 ##' @keywords methods
 ##' @export

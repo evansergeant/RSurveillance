@@ -8,7 +8,7 @@ sep.rb.bin(pstar, rr, ppr, n, se)
 \arguments{
 \item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding to the number of risk strata)}
 
 \item{ppr}{population proportions corresponding to rr values
 (vector of equal length to rr)}
@@ -16,16 +16,17 @@ sep.rb.bin(pstar, rr, ppr, n, se)
 \item{n}{sample size per risk category (vector same length as
 rr and ppr)}
 
-\item{se}{unit sensitivity (fixed value or vector same length as
-rr, ppr, n)}
+\item{se}{unit sensitivity, can vary among risk strata (fixed value or
+vector same length as rr, ppr, n)}
 }
 \value{
 list of 3 elements, a scalar of population-level sensitivity
-  a vector of EPI values and a vector of corresponding Adjusted risks
+  a vector of EPI values and a vector of corresponding adjusted risks
 }
 \description{
 Calculates risk-based population sensitivity with a
-single risk factor, using binomial method (assumes a large population)
+  single risk factor, using binomial method (assumes a large population),
+  allows for unit sensitivity to vary among risk strata
 }
 \examples{
 # examples for sep.rb.bin

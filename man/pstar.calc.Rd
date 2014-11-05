@@ -6,13 +6,13 @@
 pstar.calc(N = NA, n, sep, se)
 }
 \arguments{
-\item{N}{populaton size if known, scalar or vector}
+\item{N}{populaton size if known (scalar or vector of same length as n)}
 
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{sep}{desired population sensitivity}
+\item{sep}{desired population sensitivity (scalar or vector of same length as n)}
 
-\item{se}{unit sensitivity}
+\item{se}{unit sensitivity (scalar or vector of same length as n)}
 }
 \value{
 vector of design prevalence values
@@ -20,7 +20,7 @@ vector of design prevalence values
 \description{
 Calculates design prevalence required for given sample size and
   desired population-level sensitivity, assuming
-  imperfect test sensitivity, perfect (100%) test specificity and
+  imperfect test sensitivity, perfect test specificity and
   representative sampling
 }
 \examples{

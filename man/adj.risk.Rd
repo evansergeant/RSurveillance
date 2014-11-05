@@ -6,7 +6,7 @@
 adj.risk(rr, ppr)
 }
 \arguments{
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding to the number of risk strata)}
 
 \item{ppr}{population proportions corresponding to
 rr values (vector of equal length to rr)}
@@ -16,7 +16,9 @@ vector of adjusted risk values (in order corresponding to rr)
 }
 \description{
 Calculates adjusted risk for given
-  relative risk and population proportions
+  relative risk and population proportions. This is an intermediate calculation
+  in the calculation of effective probability of infection for risk-based
+  surveillance activities
 }
 \examples{
 # examples for adj.risk

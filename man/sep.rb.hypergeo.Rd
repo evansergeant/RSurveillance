@@ -8,7 +8,8 @@ sep.rb.hypergeo(pstar, rr, N, n, se)
 \arguments{
 \item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding
+to the number of risk strata)}
 
 \item{N}{Population size per risk category (vector same length
 as rr and ppr)}
@@ -16,17 +17,18 @@ as rr and ppr)}
 \item{n}{sample size per risk category (vector same length as
 rr and ppr)}
 
-\item{se}{unit sensitivity (fixed value or a vector the same
+\item{se}{unit sensitivity, can vary among risk strata (fixed value or a vector the same
 length as rr, ppr, n)}
 }
 \value{
 list of 3 elements, a scalar of population-level sensitivity
-  a vector of EPI values and a vector of corresponding Adjusted risks
+  a vector of EPI values and a vector of corresponding adjusted risks
 }
 \description{
 Calculates risk-based population sensitivity with a
   single risk factor, using the hypergeometric method
-  (assuming a finite and known population size)
+  (assuming a finite and known population size),
+  allows for unit sensitivity to vary among risk strata
 }
 \examples{
 # examples for sep.rb.bin

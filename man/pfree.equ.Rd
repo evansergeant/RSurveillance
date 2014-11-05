@@ -10,7 +10,7 @@ pfree.equ(sep, p.intro)
 vector)}
 
 \item{p.intro}{probability of introduction for time period (scalar
-or vector equal length to sep)}
+or vector of same length as sep)}
 }
 \value{
 a list of 2 vectors, equilibrium posterior probability of freedom
@@ -18,7 +18,7 @@ a list of 2 vectors, equilibrium posterior probability of freedom
 }
 \description{
 Calculates equilibrium probability of disease freedom and
-  equilibrium prior probability of freedom, before discounting for,
+  equilibrium prior probability of freedom, after discounting for
   probability of introduction
 }
 \examples{

@@ -6,13 +6,13 @@
 sep.binom(n, pstar, se = 1, sp = 1)
 }
 \arguments{
-\item{n}{integer scalar or vector of number tested (sample size)}
+\item{n}{sample size = number of units tested (integer), scalar or vector}
 
-\item{pstar}{scalar or vector of design prevalence as proportion}
+\item{pstar}{design prevalence as a proportion (scalar or vector of same length as n)}
 
-\item{se}{unit sensitivity of test (proportion), default = 1}
+\item{se}{unit sensitivity of test (proportion), default = 1 (scalar or vector of same length as n)}
 
-\item{sp}{unit specificity of test (proportion), default = 1}
+\item{sp}{unit specificity of test (proportion), default = 1 (scalar or vector of same length as n)}
 }
 \value{
 vector of population-level sensitivities
@@ -20,7 +20,8 @@ vector of population-level sensitivities
 \description{
 Calculates population sensitivity for detecting disease,
   assuming imperfect test sensitivity and specificity and representative sampling,
-  using binomial distribution (assumes large or unknown population size)
+  using binomial distribution (assumes large or unknown population size and that
+  cut-point number of reactors for a positive result = 1)
 }
 \examples{
 # examples for sep.binom - checked

@@ -6,20 +6,20 @@
 sep.var.se(N = NA, se, pstar)
 }
 \arguments{
-\item{N}{population size (number of units or clusters, N >= length(se))
+\item{N}{population size (number of units or clusters), N must be >= length(se))
 or NA if unknown}
 
-\item{se}{vector of unit sensitivity values}
+\item{se}{vector of unit sensitivity values (proportion) for each unit sampled}
 
-\item{pstar}{specified design prevalence}
+\item{pstar}{specified design prevalence (scalar)}
 }
 \value{
-a vector of population-level sensitivities
+a scalar of population-level sensitivity
 }
 \description{
-calculates population-level sensitivity where unit sensitivity
+Calculates population-level sensitivity where unit sensitivity
   varies and using the appropriate method, depending on whether or not N provided
-  (hypergeometric if N provided, binomial otherwise), assuming perfect (100%)
+  (hypergeometric if N provided, binomial otherwise), assuming perfect
   test specificity and representative sampling
 }
 \examples{

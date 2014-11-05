@@ -8,16 +8,17 @@ disc.prior(prior, p.intro)
 \arguments{
 \item{prior}{prior probability of freedom before surveillance}
 
-\item{p.intro}{probability of introduction for time period (scalar
-or vector equal length to sep)}
+\item{p.intro}{probability of introduction
+(or of prevalence exceeding the design prevalence) during the time period
+(scalar or vector equal length to prior)}
 }
 \value{
-vector of discounted prior probability of freedom
+vector of discounted prior probabilities of freedom
 }
 \description{
 Calculates the discounted prior probability of disease freedom,
   after adjusting for the probability of disease exceeding the
-  design prevalence during the time period
+  design prevalence during the time period of the surveillance data being analysed
 }
 \examples{
 # examples for disc.prior

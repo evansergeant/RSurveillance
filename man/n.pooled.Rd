@@ -8,13 +8,13 @@ n.pooled(sep, k, pstar, pse, psp = 1)
 \arguments{
 \item{sep}{desired population sensitivity (scalar or vector)}
 
-\item{k}{pool size (constant)  (scalar or vector)}
+\item{k}{pool size (constant across pools) (scalar or vector of same length as sep)}
 
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar or vector of same length as sep)}
 
-\item{pse}{pool-level sensitivity}
+\item{pse}{pool-level sensitivity (scalar or vector of same length as sep)}
 
-\item{psp}{pool-level specificity}
+\item{psp}{pool-level specificity (scalar or vector of same length as sep)}
 }
 \value{
 vector of sample sizes

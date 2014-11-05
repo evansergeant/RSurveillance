@@ -6,11 +6,11 @@
 n.binom(sep, pstar, se = 1)
 }
 \arguments{
-\item{sep}{desired population sensitivity}
+\item{sep}{desired population sensitivity (scalar or vector)}
 
-\item{pstar}{specified design prevalence}
+\item{pstar}{specified design prevalence (scalar or vector of same length as sep)}
 
-\item{se}{unit sensitivity}
+\item{se}{unit sensitivity, default = 1 (scalar or vector of same length as sep)}
 }
 \value{
 vector of sample sizes
@@ -18,7 +18,7 @@ vector of sample sizes
 \description{
 Calculates sample size for demonstrating freedom or
   detecting disease using binomial approach and assuming
-  imperfect test sensitivity, perfect (100%) test specificity and
+  imperfect test sensitivity, perfect test specificity and
   representative sampling
 }
 \examples{

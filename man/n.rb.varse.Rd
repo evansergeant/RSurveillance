@@ -6,26 +6,26 @@
 n.rb.varse(pstar, rr, ppr, spr, se, spr.rg, sep)
 }
 \arguments{
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar)}
 
-\item{rr}{vector of relative risk values}
+\item{rr}{relative risk values (vector, length equal to the number of risk strata)}
 
-\item{ppr}{vector of population proportions for each risk group,
-same length as rr}
+\item{ppr}{population proportions for each risk group,
+vector of same length as rr}
 
-\item{spr}{vector of surveillance proportions for each risk group,
-same length as rr}
+\item{spr}{planned surveillance proportions for each risk group,
+vector of same length as rr}
 
-\item{se}{vector of sensitivity values}
+\item{se}{unit sensitivities (vector of group values)}
 
-\item{spr.rg}{matrix of proportions of samples for each sensitivity value
-in each risk group (rows - risk groups, columns = sensitivity values),
+\item{spr.rg}{proportions of samples for each sensitivity value
+in each risk group (matrix with rows = risk groups, columns = sensitivity values),
 row sums must equal 1}
 
-\item{sep}{required population sensitivity}
+\item{sep}{required population sensitivity (scalar)}
 }
 \value{
-list of 3 elements, a smatrix of sample sizes for each risk
+list of 3 elements, a matrix of sample sizes for each risk
   and sensitivity group, a vector of EPI values and a vector of
   mean sensitivity for each risk group
 }

@@ -8,21 +8,21 @@ n.rb(pstar, rr, ppr, spr, se, sep)
 \arguments{
 \item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector, length equal to the number of risk strata)}
 
 \item{ppr}{population proportions corresponding to rr values
-(vector of equal length)}
+(vector of equal length to rr)}
 
-\item{spr}{surveillance proportion for each risk group
+\item{spr}{planned surveillance proportion for each risk group
 (vector equal length to rr, ppr)}
 
 \item{se}{unit sensitivity (fixed or vector same length as rr, ppr, n)}
 
-\item{sep}{required population sensitivity}
+\item{sep}{required population sensitivity (scalar)}
 }
 \value{
 list of 2 elements, a vector of sample sizes for each risk group
-  a scalar of total sample size, a vector od EPI values and a vector of
+  a scalar of total sample size, a vector of EPI values and a vector of
   adjusted risks
 }
 \description{

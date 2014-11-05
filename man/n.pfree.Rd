@@ -8,16 +8,20 @@ n.pfree(pfree, prior, p.intro, pstar, se, N = NA)
 \arguments{
 \item{pfree}{desired probability of freedom (scalar or vector)}
 
-\item{prior}{prior probability of freedom before surveillance}
+\item{prior}{prior probability of freedom before surveillance (scalar
+or vector of same length as pfree)}
 
 \item{p.intro}{probability of introduction for time period (scalar
-or vector equal length to sep)}
+or vector of same length as pfree)}
 
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar
+or vector of same length as pfree)}
 
-\item{se}{unit sensitivity (scalar or vector)}
+\item{se}{unit sensitivity (scalar
+or vector of same length as pfree)}
 
-\item{N}{population size}
+\item{N}{population size (scalar
+or vector of same length as pfree)}
 }
 \value{
 vector of sample sizes

@@ -6,11 +6,13 @@
 sep.rb2.hypergeo(pstar, rr1, rr2, N, n, se)
 }
 \arguments{
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar)}
 
-\item{rr1}{relative risks for first level risk factor}
+\item{rr1}{relative risks for first level risk factor (vector of values corresponding
+to the number of risk strata)}
 
-\item{rr2}{relative risks for second level risk factor}
+\item{rr2}{relative risks for second level risk factor,
+matrix, rows = levels of rr1, cols = levels of rr2}
 
 \item{N}{matrix of population size for each risk group
 (rows = levels of rr1, cols = levels of rr2)}
@@ -18,7 +20,7 @@ sep.rb2.hypergeo(pstar, rr1, rr2, N, n, se)
 \item{n}{matrix of number tested (sample size) for each risk group
 (rows = levels of rr1, cols = levels of rr2)}
 
-\item{se}{test unit sensitivity}
+\item{se}{test unit sensitivity (scalar)}
 }
 \value{
 list of 6 elements, a scalar of population-level sensitivity

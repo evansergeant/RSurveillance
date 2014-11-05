@@ -10,9 +10,10 @@ pfree.1(sep, p.intro, prior = 0.5)
 vector)}
 
 \item{p.intro}{probability of introduction for time period (scalar
-or vector equal length to sep)}
+or vector of same length as sep)}
 
-\item{prior}{prior probability of freedom before surveillance}
+\item{prior}{prior probability of freedom before surveillance (scalar
+or vector of same length as sep)}
 }
 \value{
 \code{data.frame} with columns for sep, p.intro, discounted

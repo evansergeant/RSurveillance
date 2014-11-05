@@ -6,13 +6,14 @@
 n.freedom(N = NA, sep = 0.95, pstar, se = 1)
 }
 \arguments{
-\item{N}{populaton size if known, scalar or vector}
+\item{N}{population size, default = NA (unknown) (scalar or vector of same length as sep)}
 
-\item{sep}{desired population sensitivity}
+\item{sep}{desired population sensitivity (scalar or vector)}
 
-\item{pstar}{specified design prevalence (proportion or integer)}
+\item{pstar}{specified design prevalence as proportion or integer
+(scalar or vector of same length as sep)}
 
-\item{se}{unit sensitivity}
+\item{se}{unit sensitivity (scalar or vector of same length as sep)}
 }
 \value{
 vector of sample sizes, NA if N is specified and n>N
@@ -21,7 +22,7 @@ vector of sample sizes, NA if N is specified and n>N
 Calculates sample size for demonstrating freedom or
   detecting disease using the appropriate method, depending on
   whether or not N provided (hypergeometric if N provided, binomial otherwise),
-  assuming imperfect test sensitivity, perfect (100%) test specificity
+  assuming imperfect test sensitivity, perfect test specificity
   and representative sampling
 }
 \examples{

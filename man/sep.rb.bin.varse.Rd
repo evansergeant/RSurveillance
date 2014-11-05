@@ -8,18 +8,20 @@ sep.rb.bin.varse(pstar, rr, ppr, df)
 \arguments{
 \item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding
+to the number of risk strata)}
 
 \item{ppr}{population proportions corresponding to rr values
 (vector of equal length to rr)}
 
-\item{df}{dataframe of values for each sensitivity level,
+\item{df}{dataframe of values for each combination of risk stratum and
+sensitivity level,
 col 1 = risk group index, col 2 = unit Se, col 3 = n
 (sample size for that risk group and unit sensitivity)}
 }
 \value{
 list of 3 elements, a scalar of population-level sensitivity
-  a vector of EPI values and a vector of corresponding Adjusted risks
+  a vector of EPI values and a vector of corresponding adjusted risks
 }
 \description{
 Calculates population sensitivity for a single risk factor

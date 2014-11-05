@@ -6,14 +6,14 @@
 n.hypergeo(sep, N, d, se = 1)
 }
 \arguments{
-\item{sep}{desired population sensitivity}
+\item{sep}{desired population sensitivity (scalar or vector)}
 
-\item{N}{population size}
+\item{N}{population size (scalar or vector of same length as sep)}
 
-\item{d}{expected number of infected units in population (=pstar*N
-rounded to next integer)}
+\item{d}{expected number of infected units in population, = design prevalence*N
+rounded to next integer (scalar or vector of same length as sep)}
 
-\item{se}{unit sensitivity}
+\item{se}{unit sensitivity, default = 1 (scalar or vector of same length as sep)}
 }
 \value{
 vector of sample sizes, NA if n>N
@@ -21,7 +21,7 @@ vector of sample sizes, NA if n>N
 \description{
 Calculates sample size for demonstrating freedom or
   detecting disease using hypergeometric approximation and assuming
-  imperfect test sensitivity, perfect (100%) test specificity and
+  imperfect test sensitivity, perfect test specificity and
   representative sampling
 }
 \examples{

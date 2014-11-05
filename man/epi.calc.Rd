@@ -6,9 +6,10 @@
 epi.calc(pstar, rr, ppr)
 }
 \arguments{
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding to
+the number of risk strata)}
 
 \item{ppr}{population proportions corresponding to rr values
 (vector of equal length to rr)}
@@ -19,7 +20,7 @@ list of 2 elements, a vector of EPI values and a vector of corresponding
 }
 \description{
 Calculates effective probability of infection (adjusted design prevalence)
-  for each risk group
+  for each risk group for risk-based surveillance activities
 }
 \examples{
 # examples for epi.calc

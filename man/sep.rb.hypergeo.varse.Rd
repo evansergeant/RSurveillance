@@ -8,14 +8,16 @@ sep.rb.hypergeo.varse(pstar, rr, N, df)
 \arguments{
 \item{pstar}{design prevalence (scalar)}
 
-\item{rr}{relative risk values (vector)}
+\item{rr}{relative risk values (vector of values corresponding
+to the number of risk strata)}
 
-\item{N}{vector of population size corresponding to rr values
+\item{N}{vector of population size for each risk group, corresponding to rr values
 (vector of equal length to rr)}
 
-\item{df}{dataframe of values for each sensitivity level
+\item{df}{dataframe of values for each combination of risk stratum and
+sensitivity level,
 col 1 = risk group index, col 2 = unit Se, col 3 = n
-(sample size for risk group and unt sensitivity)}
+(sample size for risk group and unit sensitivity)}
 }
 \value{
 list of 5 elements, a scalar of population-level sensitivity

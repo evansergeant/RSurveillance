@@ -6,17 +6,17 @@
 sep.exact(d = 1, se = 1)
 }
 \arguments{
-\item{d}{expected number of infected units in population (=pstar*N
-rounded to next integer)}
+\item{d}{expected number of infected units in population (=design prevalence*N
+rounded to next integer), scalar or vector of same length as se}
 
-\item{se}{unit sensitivity of test (proportion)}
+\item{se}{unit sensitivity of test (proportion), scalar or vector}
 }
 \value{
 vector of population-level sensitivities
 }
 \description{
 Calculates population sensitivity for detecting disease
-  assuming imperfect test sensitivity and perfect (100%) test specificity
+  assuming imperfect test sensitivity, perfect test specificity
   and a census of all units in the population
 }
 \examples{

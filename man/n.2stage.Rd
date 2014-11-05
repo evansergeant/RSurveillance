@@ -7,27 +7,31 @@ n.2stage(H = NA, N = NA, sep.sys = 0.95, sep.c, pstar.c, pstar.u,
   se = 1)
 }
 \arguments{
-\item{H}{population size = number of clusters or NA if not known}
+\item{H}{population size = number of clusters or NA if not known, default = NA}
 
-\item{N}{populaton size if known, scalar or vector}
+\item{N}{population sizes for clusters, default = NA, scalar or
+vector of population sizes for clusters}
 
-\item{sep.sys}{desired population sensitivity}
+\item{sep.sys}{desired population sensitivity (scalar)}
 
-\item{sep.c}{desired cluster-level sensitivity}
+\item{sep.c}{desired cluster-level sensitivity (scalar)}
 
-\item{pstar.c}{specified cluster-level design prevalence (proportion or integer)}
+\item{pstar.c}{specified cluster-level design prevalence as
+proportion or integer (scalar)}
 
-\item{pstar.u}{specified population-level design prevalence (proportion or integer)}
+\item{pstar.u}{specified population-level design prevalence as
+proportion or integer (scalar)}
 
-\item{se}{unit sensitivity}
+\item{se}{unit sensitivity (scalar)}
 }
 \value{
-a list of number of clusters to sample and sample size per cluster
+a list of 2 elements, the number of clusters to sample and a vector of
+  sample sizes per cluster
 }
 \description{
 Calculates sample sizes for a 2-stage representative survey
   (sampling of clusters and units within clusters) for disease freedom or detection,
-  assuming imperfect test sensitivity, perfect (100%) test specificity
+  assuming imperfect test sensitivity, perfect test specificity and representative sampling
 }
 \examples{
 # examples of n.2stage - checked

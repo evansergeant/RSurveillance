@@ -8,20 +8,21 @@ sep.pooled(r, k, pstar, pse, psp = 1)
 \arguments{
 \item{r}{number of pools sampled (scalar or vector)}
 
-\item{k}{pool size (constant)  (scalar or vector)}
+\item{k}{pool size (scalar or vector of same length as r)}
 
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar or vector of same length as r)}
 
-\item{pse}{pool-level sensitivity}
+\item{pse}{pool-level sensitivity (scalar or vector of same length as r)}
 
-\item{psp}{pool-level specificity}
+\item{psp}{pool-level specificity (scalar or vector of same length as r)}
 }
 \value{
 list of 2 elements, vector of sep values and vector of spp
   values
 }
 \description{
-Calculates population sensitivity assuming pooled sampling
+Calculates population sensitivity (sep) and population specificity (spp)
+  assuming pooled sampling
   and allowing for imperfect sensitivity and specificity of the pooled test
 }
 \examples{

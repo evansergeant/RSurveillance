@@ -9,32 +9,36 @@ sse.rb.2stage(C = NA, pstar.c, pstar.u, rr.c, ppr.c, rr.u, ppr.u, N = NA, n,
 \arguments{
 \item{C}{Population size (number of clusters), NA = unknown (default)}
 
-\item{pstar.c}{cluster level design prevalence}
+\item{pstar.c}{cluster level design prevalence (scalar)}
 
-\item{pstar.u}{unit level design prevalence}
+\item{pstar.u}{unit level design prevalence (scalar)}
 
-\item{rr.c}{cluster level relative risks (vector),
+\item{rr.c}{cluster level relative risks (vector with length
+corresponding to the number of risk strata),
 use rr.c = c(1,1) if risk factor does not apply}
 
 \item{ppr.c}{cluster level population proportions for risk
 categories (vector), NA if no cluster level risk factor}
 
-\item{rr.u}{unit level relative risks (vector),
+\item{rr.u}{unit level relative risks (vector with length
+corresponding to the number of risk strata),
 use rr.u = c(1,1) if risk factor does not apply}
 
-\item{ppr.u}{matrix, 1 row for each cluster, columns = unit
-level risk groups}
+\item{ppr.u}{unit level population proportions for each risk group (optional)
+matrix, 1 row for each cluster, columns = unit level risk groups,
+not required if N is provided}
 
-\item{N}{cluster sizes NA or matrix of N for each risk group
-for each cluster, N=NA means cluster sizes not provided)}
+\item{N}{population size per risk group for each cluster,
+NA or matrix of N for each risk group
+for each cluster, N=NA means cluster sizes not provided}
 
-\item{n}{matrix, 1 row for each cluster, columns = unit level
-risk groups}
+\item{n}{sample size per risk group for each cluster sampled,
+matrix, 1 row for each cluster, columns = unit level risk groups}
 
-\item{rg}{vector of cluster level risk group for each cluster}
+\item{rg}{vector of cluster level risk group (index) for each cluster}
 
 \item{se}{unit sensitivity for each cluster, scalar or
-vector of values for each cluster}
+vector of values for each cluster, equal in length to n}
 }
 \value{
 list of 2 elements, a scalar of population-level (surveillance system)
@@ -42,7 +46,8 @@ list of 2 elements, a scalar of population-level (surveillance system)
 }
 \description{
 Calculates system sensitivity for 2 stage risk-based
-  sampling, using either binomial or hypergeometric approxiation
+  sampling, llowing for a single risk factor at each stage and
+  using either binomial or hypergeometric approxiation
 }
 \examples{
 # examples for sse.rb.2stage

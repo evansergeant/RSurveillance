@@ -6,11 +6,13 @@
 sep.rb2.binom(pstar, rr1, ppr1, rr2, ppr2, n, se)
 }
 \arguments{
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence (scalar)}
 
-\item{rr1}{relative risks for first level risk factor}
+\item{rr1}{relative risks for first level risk factor (vector of values corresponding
+to the number of risk strata)}
 
-\item{ppr1}{population proportions for first level risk factor}
+\item{ppr1}{population proportions for first level risk factor (vector of
+same length as rr1)}
 
 \item{rr2}{relative risks for second level risk factor,
 matrix, rows = levels of rr1, cols = levels of rr2}
@@ -21,7 +23,7 @@ risk factor, matrix, rows = levels of rr1, cols = levels of rr2}
 \item{n}{matrix of number tested for each risk group
 (rows = levels of rr1, cols = levels of rr2)}
 
-\item{se}{test unit sensitivity}
+\item{se}{test unit sensitivity (scalar)}
 }
 \value{
 list of 4 elements, a scalar of population-level sensitivity

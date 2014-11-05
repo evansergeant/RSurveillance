@@ -6,23 +6,23 @@
 sep.hypergeo(N, n, d, se = 1)
 }
 \arguments{
-\item{N}{population size}
+\item{N}{population size, scalar or vector of same length as n}
 
-\item{n}{sample size (tested)}
+\item{n}{sample size (number tested), scalar or vector}
 
-\item{d}{expected number of infected units in population (=pstar*N
+\item{d}{expected number of infected units in population (=design prevalence*N
 rounded to next integer)}
 
-\item{se}{unit sensitivity of test (proportion)}
+\item{se}{unit sensitivity of test (proportion), scalar or vector of same length as n}
 }
 \value{
 a vector of population-level sensitivities
 }
 \description{
 Calculates population sensitivity for detecting disease,
-  assuming imperfect test sensitivity and perfect (100%) test specificity
+  assuming imperfect test sensitivity, perfect test specificity
   and representative sampling,
-  using hypergeometric approximation (assumes known population size),
+  using hypergeometric approximation (assumes known population size)
 }
 \examples{
 # examples for sep.hypergeo - checked

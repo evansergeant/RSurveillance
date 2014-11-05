@@ -6,13 +6,14 @@
 sep(N = NA, n, pstar, se = 1)
 }
 \arguments{
-\item{N}{vector of population sizes: NA or vector of same length as n}
+\item{N}{population size, NA or vector of same length as n}
 
-\item{n}{vector of sample sizes}
+\item{n}{sample size (number tested), scalar or vector}
 
-\item{pstar}{design prevalence: single value as a proportion or integer}
+\item{pstar}{design prevalence as a proportion or integer, scalar
+or vector of same length as n}
 
-\item{se}{unit sensitivity: single value or vector same lengthh as n}
+\item{se}{unit sensitivity, scalar or vector of same length as n}
 }
 \value{
 a vector of population-level sensitivities
@@ -20,7 +21,7 @@ a vector of population-level sensitivities
 \description{
 Calculates population sensitivity using appropriate method,
   depending on whether or not N provided (hypergeometric if N provided,
-  binomial otherwise), assuming perfect (100%)
+  binomial otherwise), assuming perfect
   test specificity and representative sampling
 }
 \examples{

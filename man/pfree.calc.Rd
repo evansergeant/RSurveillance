@@ -6,17 +6,17 @@
 pfree.calc(sep, p.intro, prior = 0.5)
 }
 \arguments{
-\item{sep}{population sensitivity for time period (scalar or
-vector)}
+\item{sep}{population sensitivity for each time period (vector)}
 
-\item{p.intro}{probability of introduction for time period (scalar
-or vector equal length to sep)}
+\item{p.intro}{probability of introduction for each time period (scalar
+or vector of same length as sep)}
 
-\item{prior}{prior probability of freedom before surveillance}
+\item{prior}{prior probability of freedom before surveillance (scalar)}
 }
 \value{
 \code{data.frame} with columns for sep, p.intro, discounted
-  prior, pfree, pfree.equ and prior.equ
+  prior, probability of freedom, equilibrium probability of freedom
+  and equilibrium prior
 }
 \description{
 Calculates the probability (confidence) of disease freedom for

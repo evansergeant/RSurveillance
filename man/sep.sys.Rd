@@ -6,32 +6,34 @@
 sep.sys(H = NA, N = NA, n, pstar.c, pstar.u, se = 1)
 }
 \arguments{
-\item{H}{population size = number of clusters or NA if not known, default = NA}
+\item{H}{population size = number of clusters in the population, default = NA}
 
-\item{N}{population size within clusters NA if not provided,
-otherwise a vector of same length as n, default = NA}
+\item{N}{population size within clusters,
+scalar or a vector of same length as n, default = NA}
 
 \item{n}{sample size (vector of number tested per cluster)}
 
-\item{pstar.c}{cluster (herd) level design prevalence single value
+\item{pstar.c}{cluster (herd) level design prevalence, scalar,
 either proportion or integer}
 
-\item{pstar.u}{unit (animal) level design prevalence single value
+\item{pstar.u}{unit (animal) level design prevalence, scalar,
 either proportion or integer}
 
-\item{se}{unit sensitivity of test (proportion), default = 1}
+\item{se}{unit sensitivity of test (proportion), scalar, default = 1}
 }
 \value{
-vector of population-level sensitivities
+list of 6 elements, 1) population level sensitivity, 2) vector of
+  cluster-level sensitivities, 3) N, 4) n, 5) vector of design prevalences
+  and 6) unit sensitivity
 }
 \description{
 Calculates population-level (system) sensitivity for representative
   2-stage sampling (sampling of clusters and units within clusters),
-  assuming imperfect test sensitivity, perfect (100%) test specificity
+  assuming imperfect test sensitivity and perfect test specificity
 }
 \note{
-if pstar.c is not a proportion N must be entered
-(and N>=n)
+if pstar.c is not a proportion N must be provided
+  (and N>=n)
 }
 \examples{
 # examples for sep.sys - checked

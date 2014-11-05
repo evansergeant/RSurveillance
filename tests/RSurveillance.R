@@ -142,6 +142,16 @@ expected_result <- 0.9999
 observed_result <- se.parallel(c(0.99, 0.95, 0.8))
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
+## Test case - sp.series
+expected_result <- 0.9999
+observed_result <- sp.series(c(0.99, 0.95, 0.8))
+stopifnot(all(abs(observed_result - expected_result) < tol))
+
+## Test case - sp.parallel
+expected_result <- 0.7524
+observed_result <- sp.parallel(c(0.99, 0.95, 0.8))
+stopifnot(all(abs(observed_result - expected_result) < tol))
+
 ## Test case - sep.pooled
 expected_result <- c(0.3946345, 0.6335326, 0.7781533, 0.8657016,
                      0.9187004, 0.9507840, 0.9702064, 0.9819640,
