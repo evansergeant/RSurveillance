@@ -6,16 +6,17 @@
 sep.binom.imperfect(n, c = 1, se, sp = 1, pstar)
 }
 \arguments{
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{c}{The cut-point number of reactors to classify a herd/flock
-as positive, default=1, if reactors < c result is negative, >= c is positive}
+\item{c}{The cut-point number of positives to classify a cluster
+as positive, default=1, if positives < c result is negative,
+>= c is positive (scalar or vector of same length as n)}
 
-\item{se}{test unit sensitivity}
+\item{se}{test unit sensitivity (scalar or vector of same length as n)}
 
-\item{sp}{test unit specificity, default=1}
+\item{sp}{test unit specificity, default=1 (scalar or vector of same length as n)}
 
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence as a proportion (scalar or vector of same length as n)}
 }
 \value{
 a vector of population-level sensitivities
@@ -23,7 +24,8 @@ a vector of population-level sensitivities
 \description{
 Calculates population sensitivity for a large or unknown population
   and allowing for imperfect test sensitivity and specificity,
-  using Binomial distribution
+  using Binomial distribution an allowing for a variable cut-point number of
+  positives to classify as positive
 }
 \examples{
 # examples for sep.imperfect.binom

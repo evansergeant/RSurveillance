@@ -6,16 +6,16 @@
 n.tp(p, se, sp, precision, conf = 0.95)
 }
 \arguments{
-\item{p}{estimated true prevalence}
+\item{p}{estimated true prevalence (scalar or vector)}
 
-\item{se}{test sensitivity}
+\item{se}{test sensitivity (scalar or vector)}
 
-\item{sp}{test specificity}
+\item{sp}{test specificity (scalar or vector)}
 
 \item{precision}{absolute precision, +/- proportion equal to
-half the width of the desired confidence interval}
+half the width of the desired confidence interval (scalar or vector)}
 
-\item{conf}{desired level of confidence for CI, default = 0.95}
+\item{conf}{desired level of confidence for CI, default = 0.95 (scalar or vector)}
 }
 \value{
 a vector of sample sizes

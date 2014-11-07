@@ -11,7 +11,7 @@ binom.agresti(x, n, conf = 0.95)
 \item{n}{sample size, note: either x or n can be a vector,
 but at least one must be scalar}
 
-\item{conf}{level of confidence required, default 0.95}
+\item{conf}{level of confidence required, default 0.95 (scalar)}
 }
 \value{
 a dataframe with 6 columns, x, n, proportion, lower confidence limit,

@@ -14,7 +14,7 @@ but at least one must be scalar}
 \item{type}{method for estimating CI, one of c("normal", "exact", "wilson", "jeffreys", "agresti-coull", "all"),
 default = "wilson"}
 
-\item{conf}{level of confidence required, default = 0.95}
+\item{conf}{level of confidence required, default = 0.95 (scalar)}
 }
 \value{
 either 1) if type = "all", a list with 5 elements, each element
@@ -24,7 +24,7 @@ upper confidence limit, confidence level and CI method; or
 }
 \description{
 Estimates apparent prevalence and confidence limits for
-given sample size and result
+given sample size and result, assuming representative sampling
 }
 \examples{
 # examples for ap function

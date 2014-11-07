@@ -12,7 +12,7 @@
 ##' @param precision absolute precision, +/- proportion equivalent to
 ##' half the width of the desired confidence interval, scalar or vector of values,
 ##' note: at least one of p and precision must be a scalar
-##' @param conf level of confidence required, default = 0.95
+##' @param conf level of confidence required, default = 0.95 (scalar)
 ##' @return a vector of sample sizes
 ##' @keywords methods
 ##' @export
@@ -37,7 +37,7 @@ n.ap<- function(p, precision, conf=0.95) {
 ##' @param x number of positives in sample
 ##' @param n sample size, note: either x or n can be a vector, 
 ##' but at least one must be scalar
-##' @param conf level of confidence required, default 0.95
+##' @param conf level of confidence required, default 0.95 (scalar)
 ##' @return a dataframe with 6 columns, x, n, proportion, lower confidence limit,
 ##' upper confidence limit, confidence level and CI method
 ##' @keywords methods
@@ -68,7 +68,7 @@ binom.agresti<- function(x, n, conf=0.95) {
 ##' @param x number of positives in sample
 ##' @param n sample size, note: either x or n can be a vector, 
 ##' but at least one must be scalar
-##' @param conf level of confidence required, default = 0.95
+##' @param conf level of confidence required, default = 0.95 (scalar)
 ##' @return a dataframe with 6 columns, x, n, proportion, lower confidence limit,
 ##' upper confidence limit, confidence level and CI method
 ##' @keywords methods
@@ -95,7 +95,7 @@ binom.jeffreys<- function(x, n, conf=0.95) {
 ##' @param x number of positives in sample
 ##' @param n sample size, note: either x or n can be a vector, 
 ##' but at least one must be scalar
-##' @param conf level of confidence required, default = 0.95
+##' @param conf level of confidence required, default = 0.95 (scalar)
 ##' @return a dataframe with 6 columns, x, n, proportion, lower confidence limit,
 ##' upper confidence limit, confidence level and CI method
 ##' @keywords methods
@@ -118,13 +118,13 @@ binom.cp<- function(x, n, conf=0.95) {
 
 ##' Apparent prevalence
 ##' @description Estimates apparent prevalence and confidence limits for
-##' given sample size and result
+##' given sample size and result, assuming representative sampling
 ##' @param x number of positives in sample
 ##' @param n sample size, note: either x or n can be a vector, 
 ##' but at least one must be scalar
 ##' @param type method for estimating CI, one of c("normal", "exact", "wilson", "jeffreys", "agresti-coull", "all"),
 ##' default = "wilson"
-##' @param conf level of confidence required, default = 0.95
+##' @param conf level of confidence required, default = 0.95 (scalar)
 ##' @return either 1) if type = "all", a list with 5 elements, each element
 ##' a matrix with 6 columns, x, n, proportion, lower confidence limit,
 ##' upper confidence limit, confidence level and CI method; or
@@ -161,12 +161,12 @@ ap<- function(x, n, type = "wilson", conf = 0.95) {
 ##' Sample size for true prevalence
 ##' @description Calculates sample size for estimating true prevalence 
 ##' using normal approximation
-##' @param p estimated true prevalence
-##' @param se test sensitivity 
-##' @param sp test specificity 
+##' @param p estimated true prevalence (scalar or vector)
+##' @param se test sensitivity (scalar or vector)
+##' @param sp test specificity (scalar or vector) 
 ##' @param precision absolute precision, +/- proportion equal to
-##' half the width of the desired confidence interval
-##' @param conf desired level of confidence for CI, default = 0.95
+##' half the width of the desired confidence interval (scalar or vector)
+##' @param conf desired level of confidence for CI, default = 0.95 (scalar or vector)
 ##' @return a vector of sample sizes
 ##' @keywords methods
 ##' @export
@@ -186,10 +186,10 @@ n.tp<- function(p, se, sp, precision, conf=0.95) {
 ##' Standard deviation of true prevalence estimate
 ##' @description Calculates the standard deviation of true prevalence estimate
 ##' assuming se and sp known exactly, used to calculate normal approximation CI for estimate
-##' @param x number of positive results in sample
-##' @param n sample size
-##' @param se test sensitivity
-##' @param sp test specificity
+##' @param x number of positive results in sample (scalar or vector)
+##' @param n sample size (scalar or vector)
+##' @param se test sensitivity (scalar or vector)
+##' @param sp test specificity (scalar or vector)
 ##' @return vector of standard deviation values for true prevalence estimates
 ##' @keywords methods
 ##' @export
@@ -206,11 +206,11 @@ sd.tp<- function(x, n, se, sp) {
 ##' Normal approximation confidence limits for true prevalence
 ##' @description Estimates true prevalence and confidence limits for 
 ##' estimates based on normal approximation
-##' @param x number of positive results in sample
-##' @param n sample size
-##' @param se test unit sensitivity
-##' @param sp test unit specificity
-##' @param conf desired level of confidence for CI, default = 0.95
+##' @param x number of positive results in sample (scalar or vector)
+##' @param n sample size (scalar or vector)
+##' @param se test unit sensitivity (scalar or vector)
+##' @param sp test unit specificity (scalar or vector)
+##' @param conf desired level of confidence for CI, default = 0.95 (scalar or vector)
 ##' @return list with 2 elements, a matrix of apparent prevalence and wilson lower and upper confidence limits
 ##' and a matrix of true prevalence and normal approximation lower and upper confidence limits
 ##' @keywords methods
@@ -244,9 +244,9 @@ tp.normal<- function(x, n, se, sp, conf=0.95) {
 ##' @param type method for estimating CI, one of c("normal", "c-p", "sterne", "blaker", "wilson", "all")
 ##' @param conf desired level of confidence for CI, default = 0.95 (scalar)
 ##' @return list with 2 elements, a matrix of apparent prevalence and 
-##' lower and upper confidence limits
-##' and a matrix of true prevalence and lower and upper 
-##' confidence limits using the chosen method(s)
+##'   lower and upper confidence limits
+##'   and a matrix of true prevalence and lower and upper 
+##'   confidence limits using the chosen method(s)
 ##' @keywords methods
 ##' @export
 ##' @examples 

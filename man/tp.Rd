@@ -20,9 +20,9 @@ tp(x, n, se, sp, type = "blaker", conf = 0.95)
 }
 \value{
 list with 2 elements, a matrix of apparent prevalence and
-lower and upper confidence limits
-and a matrix of true prevalence and lower and upper
-confidence limits using the chosen method(s)
+  lower and upper confidence limits
+  and a matrix of true prevalence and lower and upper
+  confidence limits using the chosen method(s)
 }
 \description{
 Estimates true prevalence and confidence limits for

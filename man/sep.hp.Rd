@@ -6,18 +6,19 @@
 sep.hp(N, n, c = 1, se, sp = 1, pstar)
 }
 \arguments{
-\item{N}{population size}
+\item{N}{population size (scalar or vector of same length as n)}
 
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{c}{The cut-point number of reactors to classify a herd/flock
-as positive, default=1, if reactors < c result is negative, >= c is positive}
+\item{c}{The cut-point number of positives to classify a cluster
+as positive, default=1, if positives < c result is negative,
+>= c is positive (scalar)}
 
-\item{se}{test unit sensitivity}
+\item{se}{test unit sensitivity (scalar)}
 
-\item{sp}{test unit specificity, default=1}
+\item{sp}{test unit specificity, default=1 (scalar)}
 
-\item{pstar}{design prevalence}
+\item{pstar}{design prevalence as a proportion  (scalar)}
 }
 \value{
 a vector of population-level sensitivities

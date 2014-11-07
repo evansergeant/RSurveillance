@@ -2,7 +2,7 @@
 # Freedom functions for imperfect tests
 ##############################################################
 # sep.freecalc - Calculate herd/population sensitivitiy for imperfect tests and known population size using Freecalc method (Cameron and Baldock 1999)
-#       calculates for specified population size, sample size, cut-point number of reactors, se and sp and design prevalence
+#       calculates for specified population size, sample size, cut-point number of positives, se and sp and design prevalence
 # sep.hp - as for sep.freecalc except uses "HerdPlus" algorithm, developed by Matthias Greiner but so far unpublished (I believe)
 # sep.binom.imperfect - as above but uses binomial approach assuming large population
 # sph.hp - herd specificity for variable cut-point and finite popualtion size using herdplus approach
@@ -17,14 +17,15 @@
 ##' FreeCalc population sensitivity  for imperfect test
 ##' @description Calculates population sensitivity for a finite population 
 ##'   and allowing for imperfect test sensitivity and specificity, using Freecalc method
-##' @param N population size
-##' @param n sample size
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
-##' @param se test unit sensitivity
-##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence - assumed or target prevalence for 
-##'   detection of disease in the population
+##' @param N population size (scalar)
+##' @param n sample size (scalar)
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, 
+##'   >= c is positive (scalar)
+##' @param se test unit sensitivity (scalar)
+##' @param sp test unit specificity, default=1 (scalar)
+##' @param pstar design prevalence as a proportion - assumed or target prevalence for 
+##'   detection of disease in the population (scalar)
 ##' @return population-level sensitivity
 ##' @keywords methods
 ##' @export
@@ -62,13 +63,14 @@ sep.freecalc <- function(N,n,c=1,se,sp=1,pstar) {           # code checked by Ev
 ##' @description Calculates population sensitivity for a finite population 
 ##'   and allowing for imperfect test sensitivity and specificity, 
 ##'   using Hypergeometric distribution
-##' @param N population size
-##' @param n sample size
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
-##' @param se test unit sensitivity
-##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##' @param N population size (scalar or vector of same length as n)
+##' @param n sample size (scalar or vector)
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, 
+##'   >= c is positive (scalar)
+##' @param se test unit sensitivity (scalar)
+##' @param sp test unit specificity, default=1 (scalar)
+##' @param pstar design prevalence as a proportion  (scalar)
 ##' @return a vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -93,13 +95,15 @@ sep.hp <- function(N,n,c=1,se,sp=1,pstar) {
 ##' Binomial population sensitivity for imperfect test
 ##' @description Calculates population sensitivity for a large or unknown population 
 ##'   and allowing for imperfect test sensitivity and specificity, 
-##'   using Binomial distribution
-##' @param n sample size
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
-##' @param se test unit sensitivity
-##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##'   using Binomial distribution an allowing for a variable cut-point number of 
+##'   positives to classify as positive
+##' @param n sample size (scalar or vector)
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, 
+##'   >= c is positive (scalar or vector of same length as n)
+##' @param se test unit sensitivity (scalar or vector of same length as n)
+##' @param sp test unit specificity, default=1 (scalar or vector of same length as n)
+##' @param pstar design prevalence as a proportion (scalar or vector of same length as n)
 ##' @return a vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -119,11 +123,12 @@ sep.binom.imperfect<- function(n, c=1, se, sp=1, pstar) {
 ##' Hypergeometric population specificity calculation
 ##' @description Calculates population specificity for a finite population 
 ##' and imperfect test, using Hypergeometric distribution
-##' @param N population size
-##' @param n sample size
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
-##' @param sp test unit specificity
+##' @param N population size (scalar or vector of same length as n)
+##' @param n sample size (scalar or vector)
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, 
+##'   >= c is positive (scalar or vector of same length as n)
+##' @param sp test unit specificity (scalar or vector of same length as n)
 ##' @return a vector of population-level specificities
 ##' @keywords methods
 ##' @export
@@ -144,11 +149,12 @@ sph.hp <- function(N,n,c=1,sp) {
 
 ##' Binomial population specificity for imperfect test 
 ##' @description Calculates population specificity for a large or unknown population, 
-##'   using the Binomial distribution and adjusting for cut-point number of reactors
-##' @param n sample size
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
-##' @param sp test unit specificity
+##'   using the Binomial distribution and adjusting for cut-point number of positives
+##' @param n sample size (scalar or vector)
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, 
+##'   >= c is positive (scalar or vector of same length as n)
+##' @param sp test unit specificity (scalar or vector of same length as n)
 ##' @return a vector of population-level specificities
 ##' @keywords methods
 ##' @export
@@ -166,18 +172,18 @@ sph.binom<- function(n, c=1, sp) {
 }
 
 
-##' Hypergeometric (HerdPlus) sample size for finite population and specified cut-point number of reactors
+##' Hypergeometric (HerdPlus) sample size for finite population and specified cut-point number of positives
 ##' @description Calculates sample size to achieve specified population sensitivity with
 ##'   population specificity >= specified minimum value,
-##'   for given population size, cut-point number of reactors and other parameters, 
+##'   for given population size, cut-point number of positives and other parameters, 
 ##'   all paramaters must be scalars
 ##' @param N population size
 ##' @param sep target population sensitivity
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, >= c is positive
 ##' @param se test unit sensitivity
 ##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##' @param pstar design prevalence as a proportion or integer (number of infected units)
 ##' @param minSpH minimium desired population specificity
 ##' @return A list of 2 elements, a dataframe with 1 row and six columns for
 ##'   the recommended sample size and corresponding values for population sensitivity (SeP),
@@ -213,18 +219,18 @@ n.hp<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
 }
 
 
-##' Hypergeometric (HerdPlus) optimum sample size and specified cut-point number 
-##' of reactors
-##' @description Calculates optimum sample size and cut-point reactors 
+##' Hypergeometric (HerdPlus) optimum sample size and cut-point number 
+##' of positives
+##' @description Calculates optimum sample size and cut-point positives 
 ##'   to achieve specified population sensitivity, for 
 ##'   given population size and other parameters, all paramaters must be scalars
 ##' @param N population size
 ##' @param sep target population sensitivity
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
+##' @param c The maximum allowed cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, >= c is positive
 ##' @param se test unit sensitivity
 ##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##' @param pstar design prevalence as a proportion or integer (number of infected units)
 ##' @param minSpH minimium desired population specificity
 ##' @return a list of 3 elements, a dataframe with 1 row and six columns for
 ##'   the recommended sample size and corresponding values for population sensitivity (SeP),
@@ -261,17 +267,17 @@ n.c.hp<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
 }
 
 
-##' Freecalc sample size for a finite population and specified cut-point number of reactors
+##' Freecalc sample size for a finite population and specified cut-point number of positives
 ##' @description Calculates sample size required for a specified population sensitivity,
-##' for a given population size, cut-point number of reactors and other parameters, 
+##' for a given population size, cut-point number of positives and other parameters, 
 ##' using Freecalc algorithm. All paramaters must be scalars
 ##' @param N population size
 ##' @param sep target population sensitivity
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
+##' @param c The cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, >= c is positive
 ##' @param se test unit sensitivity
 ##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##' @param pstar design prevalence as a proportion or integer (number of infected units)
 ##' @param minSpH minimium desired population specificity
 ##' @return a list of 2 elements, a dataframe with 1 row and six columns for
 ##'   the recommended sample size and corresponding values for population sensitivity (SeP),
@@ -306,19 +312,19 @@ n.freecalc<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
 }
 
 
-##' Freecalc optimum sample size and specified cut-point number 
-##' of reactors
-##' @description Calculates optimum sample size and cut-point reactors 
+##' Freecalc optimum sample size and cut-point number 
+##' of positives
+##' @description Calculates optimum sample size and cut-point number of positives 
 ##'   to achieve specified population sensitivity, for 
 ##'   given population size and other parameters, using freecalc algorithm, 
 ##'   all paramaters must be scalars
 ##' @param N population size
 ##' @param sep target population sensitivity
-##' @param c The cut-point number of reactors to classify a herd/flock
-##'   as positive, default=1, if reactors < c result is negative, >= c is positive
+##' @param c The maximum allowed cut-point number of positives to classify a cluster
+##'   as positive, default=1, if positives < c result is negative, >= c is positive
 ##' @param se test unit sensitivity
 ##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence
+##' @param pstar design prevalence as a proportion or integer (number of infected units)
 ##' @param minSpH minimium desired population specificity
 ##' @return a list of 3 elements, a dataframe with 1 row and six columns for
 ##' the recommended sample size and corresponding values for population sensitivity (SeP),

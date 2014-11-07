@@ -6,15 +6,15 @@
 tp.normal(x, n, se, sp, conf = 0.95)
 }
 \arguments{
-\item{x}{number of positive results in sample}
+\item{x}{number of positive results in sample (scalar or vector)}
 
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{se}{test unit sensitivity}
+\item{se}{test unit sensitivity (scalar or vector)}
 
-\item{sp}{test unit specificity}
+\item{sp}{test unit specificity (scalar or vector)}
 
-\item{conf}{desired level of confidence for CI, default = 0.95}
+\item{conf}{desired level of confidence for CI, default = 0.95 (scalar or vector)}
 }
 \value{
 list with 2 elements, a matrix of apparent prevalence and wilson lower and upper confidence limits

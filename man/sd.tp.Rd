@@ -6,13 +6,13 @@
 sd.tp(x, n, se, sp)
 }
 \arguments{
-\item{x}{number of positive results in sample}
+\item{x}{number of positive results in sample (scalar or vector)}
 
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{se}{test sensitivity}
+\item{se}{test sensitivity (scalar or vector)}
 
-\item{sp}{test specificity}
+\item{sp}{test specificity (scalar or vector)}
 }
 \value{
 vector of standard deviation values for true prevalence estimates

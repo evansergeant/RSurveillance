@@ -6,19 +6,20 @@
 sph.binom(n, c = 1, sp)
 }
 \arguments{
-\item{n}{sample size}
+\item{n}{sample size (scalar or vector)}
 
-\item{c}{The cut-point number of reactors to classify a herd/flock
-as positive, default=1, if reactors < c result is negative, >= c is positive}
+\item{c}{The cut-point number of positives to classify a cluster
+as positive, default=1, if positives < c result is negative,
+>= c is positive (scalar or vector of same length as n)}
 
-\item{sp}{test unit specificity}
+\item{sp}{test unit specificity (scalar or vector of same length as n)}
 }
 \value{
 a vector of population-level specificities
 }
 \description{
 Calculates population specificity for a large or unknown population,
-  using the Binomial distribution and adjusting for cut-point number of reactors
+  using the Binomial distribution and adjusting for cut-point number of positives
 }
 \examples{
 # examples for sph.imperfect.sp

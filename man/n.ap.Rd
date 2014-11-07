@@ -12,7 +12,7 @@ n.ap(p, precision, conf = 0.95)
 half the width of the desired confidence interval, scalar or vector of values,
 note: at least one of p and precision must be a scalar}
 
-\item{conf}{level of confidence required, default = 0.95}
+\item{conf}{level of confidence required, default = 0.95 (scalar)}
 }
 \value{
 a vector of sample sizes
