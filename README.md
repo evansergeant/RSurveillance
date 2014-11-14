@@ -27,20 +27,20 @@ risk-based freedom surveys, probability of freedom estimation and prevalence est
 
 ###Representative freedom surveys
 ####Population sensitivity estimation
-**sep.binom**
+**sep.binom()**  
 Calculates population sensitivity for detecting disease,
 assuming imperfect test sensitivity and specificity and representative sampling,
 using binomial distribution (assumes large or unknown population size and that 
-cut-point number of reactors for a positive result = 1)
+cut-point number of reactors for a positive result = 1)  
 
-*Usage*
-`sep<- sep.binom(n, pstar, se = 1, sp = 1)`
-n = sample size = number of units tested (integer), scalar or vector  
-pstar = design prevalence as a proportion (scalar or vector of same length as n)
-se = unit sensitivity of test (proportion), default = 1 (scalar or vector of same length as n)
-sp = unit specificity of test (proportion), default = 1 (scalar or vector of same length as n)
+*Usage*  
+`sep<- sep.binom(n, pstar, se = 1, sp = 1)`  
+n = sample size = number of units tested (integer), scalar or vector    
+pstar = design prevalence as a proportion (scalar or vector of same length as n)  
+se = unit sensitivity of test (proportion), default = 1 (scalar or vector of same length as n)  
+sp = unit specificity of test (proportion), default = 1 (scalar or vector of same length as n)  
 
-Returns a vector of population-level sensitivities
+Returns a vector of population-level sensitivities  
 
 sep.hypergeo
 
