@@ -55,15 +55,36 @@ sep.var.se
 sep.sys
 
 ####Sample size estimation
+n.binom
+
+n.hypergeo
+
+n.freedom
+
+n.2stage
+
+####Miscellaneous functions
+pstar.calc
 
 ####Functions allowing for imperfect specificity
 
 ###Risk-based freedom surveys 
 ####Population sensitivity estimation
+pfree.1
+
+pfree.calc
+
+pfree.equ
 
 ####Sample size estimation
+n.pfree
 
-####Background functions
+####Miscellaneous functions
+disc.prior
+
+sep.pfree
+
+sep.prior
 
 ###Probability of freedom estimation
 ####Probability of freedom
@@ -77,3 +98,12 @@ sep.sys
 
 ####Sample size calculation
 
+###Combining tests
+se.series
+se.parallel
+sp.series
+sp.parallel
+
+###Pooled testing
+sep.pooled
+n.pooled
