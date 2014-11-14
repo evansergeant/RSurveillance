@@ -9,7 +9,7 @@ RSurveillance
     and analysis of representative surveys for disease freedom, risk-based
     studies for disease freedom and for prevalence estimation.
 
-You can track (and contribute to) development of `rmatio`
+You can track (and contribute to) development of `RSurveillance`
 at https://github.com/evansergeant/RSurveillance.
 
 Installation
