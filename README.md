@@ -100,10 +100,14 @@ sep.prior
 
 ###Combining tests
 se.series
+
 se.parallel
+
 sp.series
+
 sp.parallel
 
 ###Pooled testing
 sep.pooled
+
 n.pooled
