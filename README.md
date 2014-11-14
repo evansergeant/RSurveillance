@@ -25,11 +25,11 @@ Usage
 `RSurveillance` functions are organised into three broad areas of surveillance, namely representative freedom surveys,
 risk-based freedom surveys, probability of freedom estimation and prevalence estimation. Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories.
 
-!!Representative freedom surveys
+##Representative freedom surveys
 
-!!Risk-based freedom surveys 
+###Risk-based freedom surveys 
 
-!!Probability of freedom estimation
+###Probability of freedom estimation
 
-!!Prevalence estimation
+###Prevalence estimation
 
