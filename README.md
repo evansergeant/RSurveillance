@@ -29,39 +29,89 @@ risk-based freedom surveys, probability of freedom estimation and prevalence est
 ####Population sensitivity estimation
 #####sep.binom()
 **Binomial Population sensitivity**  
-Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity and specificity and representative sampling, using binomial distribution (assumes large or unknown population size and that cut-point number of reactors for a positive result = 1).  
+Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity and specificity and representative sampling, using binomial distribution (assumes large or unknown population size and that cut-point number of reactors for a positive result = 1). Used by function sep().  
 
 *Usage*  
 `sep.binom(n, pstar, se = 1, sp = 1)`  
 
 #####sep.hypergeo() 
 **Hypergeometric Population sensitivity**  
-Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity, perfect test specificity and representative sampling, using hypergeometric approximation (assumes known population size).  
+Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity, perfect test specificity and representative sampling, using hypergeometric approximation (assumes known population size). Used by function sep().  
 
 *Usage*  
 `sep.hypergeo(N, n, d, se = 1)`  
 
-sep.exact
+#####sep.exact()
+**Population sensitivity for census (all units tested)**  
+Calculates population sensitivity for detecting disease assuming imperfect test sensitivity, perfect test specificity and a census of all units in the population.  
 
-spp
+*Usage*  
+`sep.exact(d=1, se = 1)`  
 
-sep
+#####spp()
+**Population specificity**  
+Calculates population specificity assuming representative sampling.  
 
-sep.var.se
+*Usage*  
+`spp(n, sp)`  
 
-sep.sys
+#####sep()
+**Population sensitivity **  
+Calculates population sensitivity using appropriate method, depending on whether or not N provided (hypergeometric if N provided, binomial otherwise), assuming perfect test specificity and representative sampling. Uses functions sep.() and sep.hypergeo() for calculations.  
+
+*Usage*  
+`sep(N = NA, n, pstar, se=1)`  
+
+#####sep.var.se()
+**Population sensitivity for varying unit sensitivity**  
+Calculates population-level sensitivity where unit sensitivity varies and using the appropriate method, depending on whether or not N provided (hypergeometric if N provided, binomial otherwise), assuming perfect test specificity and representative sampling.  
+
+*Usage*  
+`sep.var.se(N=NA, se, pstar)`  
+
+#####sep.sys()
+**2-stage population sensitivity**  
+Calculates population-level (system) sensitivity for representative 2-stage sampling (sampling of clusters and units within clusters), assuming imperfect test sensitivity and perfect test specificity.  
+
+*Usage*  
+`sep.sys<- function(H=NA, N=NA, n, pstar.c, pstar.u, se=1)`  
 
 ####Sample size estimation
-n.binom
+#####n.binom()
+**Binomial sample size**  
+Calculates sample size for demonstrating freedom or detecting disease using binomial approach and assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
 
-n.hypergeo
+*Usage*  
+`n.binom(sep, pstar, se = 1)`  
 
-n.freedom
+#####n.hypergeo()
+**Hypergeometric sample size**  
+Calculates sample size for demonstrating freedom or detecting disease using hypergeometric approximation and assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
 
-n.2stage
+*Usage*  
+`n.hypergeo(sep, N, d, se = 1)`  
+
+#####n.freedom()
+**Freedom sample size **  
+Calculates sample size for demonstrating freedom or detecting disease using the appropriate method, depending on whether or not N provided (hypergeometric if N provided, binomial otherwise), assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
+
+*Usage*  
+`n.freedom(N=NA, sep=0.95, pstar,se=1)`  
+
+#####n.2stage()
+**2-stage freedom sample size**  
+Calculates sample sizes for a 2-stage representative survey (sampling of clusters and units within clusters) for disease freedom or detection, assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
+
+*Usage*  
+`n.2stage(H=NA, N=NA, sep.sys=0.95, sep.c, pstar.c, pstar.u, se=1)`  
 
 ####Miscellaneous functions
-pstar.calc
+#####pstar.calc()
+**Design prevalence back-calculation**  
+Calculates design prevalence required for given sample size and desired population-level sensitivity, assuming imperfect test sensitivity, perfect test specificity and representative sampling.
+
+*Usage*  
+`pstar.calc(N=NA, n, sep, se)`  
 
 ####Functions allowing for imperfect specificity
 
