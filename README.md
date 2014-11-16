@@ -27,15 +27,15 @@ risk-based freedom surveys, probability of freedom estimation and prevalence est
 
 ###Representative freedom surveys
 ####Population sensitivity estimation
-#####sep.binom()**
-Binomial Population sensitivity  
+#####sep.binom()
+**Binomial Population sensitivity**  
 Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity and specificity and representative sampling, using binomial distribution (assumes large or unknown population size and that cut-point number of reactors for a positive result = 1).  
 
 *Usage*  
 `sep.binom(n, pstar, se = 1, sp = 1)`  
 
 #####sep.hypergeo() 
-Hypergeometric Population sensitivity  
+**Hypergeometric Population sensitivity**  
 Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity, perfect test specificity and representative sampling, using hypergeometric approximation (assumes known population size).  
 
 *Usage*  
