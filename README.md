@@ -56,7 +56,7 @@ Calculates population specificity assuming representative sampling.
 `spp(n, sp)`  
 
 #####sep()
-**Population sensitivity **  
+**Population sensitivity**  
 Calculates population sensitivity using appropriate method, depending on whether or not N provided (hypergeometric if N provided, binomial otherwise), assuming perfect test specificity and representative sampling. Uses functions sep.() and sep.hypergeo() for calculations.  
 
 *Usage*  
@@ -92,7 +92,7 @@ Calculates sample size for demonstrating freedom or detecting disease using hype
 `n.hypergeo(sep, N, d, se = 1)`  
 
 #####n.freedom()
-**Freedom sample size **  
+**Freedom sample size**  
 Calculates sample size for demonstrating freedom or detecting disease using the appropriate method, depending on whether or not N provided (hypergeometric if N provided, binomial otherwise), assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
 
 *Usage*  
@@ -117,21 +117,56 @@ Calculates design prevalence required for given sample size and desired populati
 
 ###Risk-based freedom surveys 
 ####Population sensitivity estimation
-pfree.1
+#####pfree.1()
+**Probability of freedom for single time period**  
+Calculates the posterior probability (confidence) of disease freedom (negative predictive value) for a single time period.  
 
-pfree.calc
+*Usage*  
+`pfree.1(sep, p.intro, prior=0.5)`  
 
-pfree.equ
+#####pfree.calc()
+**Probability of freedom over time**  
+Calculates the probability (confidence) of disease freedom for given prior, sep and p.intro over 1 or more time periods.  
+
+*Usage*  
+`pfree.calc(sep, p.intro, prior=0.5)`  
+
+#####pfree.equ()
+**Equilibrium probability of freedom**  
+Calculates equilibrium probability of disease freedom and equilibrium prior probability of freedom, after discounting for probability of introduction.  
+
+*Usage*  
+`pfree.equ(sep, p.intro)`  
 
 ####Sample size estimation
-n.pfree
+#####n.pfree()
+**Sample size to achieve desired (posterior) probability of freedom**  
+Calculates the sample size required to achieve a given value for probability of disease freedom.  
+
+*Usage*  
+`n.pfree(pfree, prior, p.intro, pstar, se, N = NA)`  
 
 ####Miscellaneous functions
-disc.prior
+#####disc.prior()
+**Discounted prior probability of freedom**  
+Calculates the discounted prior probability of disease freedom, after adjusting for the probability of disease exceeding the design prevalence during the time period of the surveillance data being analysed.  
 
-sep.pfree
+*Usage*  
+`disc.prior(prior, p.intro)`  
 
-sep.prior
+#####sep.pfree()
+**Population sensitivity to achieve desired (posterior) probability of freedom**  
+Calculates the population sensitivity required to achieve a given value for probability of disease freedom.  
+
+*Usage*  
+`sep.pfree(prior, pfree)` 
+
+#####sep.prior()
+**Population sensitivity to achieve desired prior probability of freedom**  
+Calculates the population sensitivity required to achieve a given value for the prior (discounted) probability of disease.   freedom
+
+*Usage*  
+`sep.prior(prior, p.intro)`  
 
 ###Probability of freedom estimation
 ####Probability of freedom
@@ -146,15 +181,47 @@ sep.prior
 ####Sample size calculation
 
 ###Combining tests
-se.series
+#####se.series()
+**Sensitivity of tests in series**  
+Calculates the combined sensitivity for multiple tests interpreted in series (assuming independence).  
 
-se.parallel
+*Usage*  
+`se.series(se)`  
 
-sp.series
+#####se.parallel()
+**Sensitivity of tests in parallel**  
+Calculates the combined sensitivity for multiple tests interpreted in parallel (assuming independence).  
 
-sp.parallel
+*Usage*  
+`se.parallel(se)`  
+
+#####sp.series()
+**Specficity of tests in series**  
+Calculates the combined specificity for multiple tests interpreted in series (assuming independence).  
+
+*Usage*  
+`sp.series(sp)`  
+
+#####sp.parallel()
+**Specificity of tests in parallel**  
+Calculates the combined specificity for multiple tests interpreted in parallel (assuming independence).  
+
+*Usage*  
+`sp.parallel(sp)`  
 
 ###Pooled testing
-sep.pooled
+#####sep.pooled()
+**Pooled population sensitivity**  
+Calculates population sensitivity (sep) and population specificity (spp) assuming pooled sampling and allowing for imperfect sensitivity and specificity of the pooled test.  
 
-n.pooled
+*Usage*  
+`sep.pooled(r, k, pstar, pse, psp=1)`  
+
+#####n.pooled()
+**Sample size for pooled testing for freedom**  
+Calculates sample size to achieve desired population-level sensitivity, assuming pooled sampling and allowing for imperfect sensitivity and specificity of the pooled test.  
+
+*Usage*  
+`n.pooled(sep, k, pstar, pse, psp=1)`  
+
+
