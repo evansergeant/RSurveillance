@@ -117,6 +117,13 @@ Calculates design prevalence required for given sample size and desired populati
 
 ###Risk-based freedom surveys 
 ####Population sensitivity estimation
+
+####Sample size estimation
+
+####Miscellaneous functions
+
+###Probability of freedom estimation
+####Probability of freedom
 #####pfree.1()
 **Probability of freedom for single time period**  
 Calculates the posterior probability (confidence) of disease freedom (negative predictive value) for a single time period.  
@@ -138,21 +145,13 @@ Calculates equilibrium probability of disease freedom and equilibrium prior prob
 *Usage*  
 `pfree.equ(sep, p.intro)`  
 
-####Sample size estimation
+####Miscellaneous functions
 #####n.pfree()
 **Sample size to achieve desired (posterior) probability of freedom**  
 Calculates the sample size required to achieve a given value for probability of disease freedom.  
 
 *Usage*  
 `n.pfree(pfree, prior, p.intro, pstar, se, N = NA)`  
-
-####Miscellaneous functions
-#####disc.prior()
-**Discounted prior probability of freedom**  
-Calculates the discounted prior probability of disease freedom, after adjusting for the probability of disease exceeding the design prevalence during the time period of the surveillance data being analysed.  
-
-*Usage*  
-`disc.prior(prior, p.intro)`  
 
 #####sep.pfree()
 **Population sensitivity to achieve desired (posterior) probability of freedom**  
@@ -168,12 +167,13 @@ Calculates the population sensitivity required to achieve a given value for the 
 *Usage*  
 `sep.prior(prior, p.intro)`  
 
-###Probability of freedom estimation
-####Probability of freedom
-
-####Miscellaneous functions
-
 ####Background functions
+#####disc.prior()
+**Discounted prior probability of freedom**  
+Calculates the discounted prior probability of disease freedom, after adjusting for the probability of disease exceeding the design prevalence during the time period of the surveillance data being analysed.  
+
+*Usage*  
+`disc.prior(prior, p.intro)`  
 
 ###Prevalence estimation
 ####Prevalence and CI estimation
