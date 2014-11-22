@@ -113,14 +113,98 @@ Calculates design prevalence required for given sample size and desired populati
 *Usage*  
 `pstar.calc(N=NA, n, sep, se)`  
 
-####Functions allowing for imperfect specificity
+###Freedom Surveys allowing for imperfect specificity
 
 ###Risk-based freedom surveys 
 ####Population sensitivity estimation
+#####sep.rb.bin()
+**Binomial risk-based population sensitivity**  
+Calculates risk-based population sensitivity with a single risk factor, using binomial method (assumes a large population), allows for unit sensitivity to vary among risk strata.  
+
+*Usage*  
+`sep.rb.bin(pstar, rr, ppr, n, se)`  
+
+#####sep.rb.hypergeo()
+**Hypergeometric risk-based population sensitivity**  
+Calculates risk-based population sensitivity with a single risk factor, using the hypergeometric method (assuming a finite and known population size), allows for unit sensitivity to vary among risk strata.  
+
+*Usage*  
+`sep.rb.hypergeo(pstar, rr, N, n, se)`  
+
+#####sep.rb.bin.varse()
+**Binomial risk-based population sensitivity for varying unit sensitivity**  
+Calculates population sensitivity for a single risk factor and varying unit sensitivity using binomial method (assumes large population).  
+
+*Usage*  
+`sep.rb.bin.varse(pstar, rr, ppr, df)`  
+
+#####sep.rb.hypergeo.varse()
+**Hypergeometric risk-based population sensitivity for varying unit sensitivity**  
+Calculates population sensitivity for a single risk factor and varying unit sensitivity using hypergeometric approximation method (assumes known population size).  
+
+*Usage*  
+`sep.rb.hypergeo.varse<- function(pstar, rr, N, df)`  
+
+#####sep.rb2.bin()
+**Binomial risk-based population sensitivity for 2 risk factors**  
+Calculates risk-based population sensitivity for two risk factors, using binomial method (assumes a large population).  
+
+*Usage*  
+`sep.rb2.binom(pstar, rr1, ppr1, rr2, ppr2, n, se)`  
+
+#####sep.rb2.hypergeo()
+**Hypergeometric risk-based population sensitivity for 2 risk factors**  
+Calculates risk-based population sensitivity for two risk factors, using hypergeometric approximation method (assumes a known population size).
+
+*Usage*  
+`sep.rb2.hypergeo(pstar, rr1, rr2, N, n, se)`  
+
+#####sse.rb.2stage()
+**Two-stage risk-based system sensitivity**  
+Calculates system sensitivity for 2 stage risk-based sampling, llowing for a single risk factor at each stage and using either binomial or hypergeometric approxiation.  
+
+*Usage*  
+`sse.rb.2stage(C=NA, pstar.c, pstar.u, rr.c, ppr.c, rr.u, ppr.u, N=NA, n, rg, se)`  
+
+#####sse.combined()
+**System sensitivity by combining multiple surveillance components**  
+Calculates overall system sensitivity for multiple components, accounting for lack of independence  (overlap) between components.  
+
+*Usage*  
+`sse.combined(C = NA, pstar.c, rr, ppr, sep)`  
+
 
 ####Sample size estimation
+#####n.rb()
+**Risk-based sample size**  
+Calculates sample size for risk-based sampling for a single risk factor and using binomial method.  
+
+*Usage*  
+`n.rb(pstar, rr, ppr, spr, se, sep)`  
+
+#####n.rb.varse()
+**Risk-based sample size for varying unit sensitivity**  
+Calculates sample size for risk-based sampling for a single risk factor and varying unit sensitivity, using binomial method.  
+
+*Usage*  
+`n.rb.varse(pstar, rr, ppr, spr, se, spr.rg, sep)`  
+
 
 ####Miscellaneous functions
+#####adj.risk()
+**Adjusted risk**  
+Calculates adjusted risk for given relative risk and population proportions. This is an intermediate calculation in the calculation of effective probability of infection for risk-based surveillance activities  
+
+*Usage*  
+`adj.risk(rr, ppr)`
+
+#####epi.calc()
+**Effective probability of infection (EPI)**  
+Calculates effective probability of infection (adjusted design prevalence) for each risk group for risk-based surveillance activities  
+
+*Usage*  
+`epi.calc(pstar, rr, ppr)`  
+
 
 ###Probability of freedom estimation
 ####Probability of freedom
