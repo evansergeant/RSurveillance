@@ -262,23 +262,70 @@ Calculates the discounted prior probability of disease freedom, after adjusting 
 ###Prevalence estimation
 ####Apparent Prevalence and CI estimation
 #####ap()
-#####binom.agresti()
-#####binom.jeffreys()
-#####binom.cp()
+**Apparent prevalence**  
+Estimates apparent prevalence and confidence limits for given sample size and result, assuming representative sampling.
 
+*Usage*  
+`ap(x, n, type = "wilson", conf = 0.95)`  
+
+#####binom.agresti()
+**Agresti-Coull confidence limits**  
+Calculates Agresti-Coull confidence limits for a simple proportion (apparent prevalence).  
+
+*Usage*  
+`binom.agresti(x, n, conf=0.95)`  
+
+#####binom.jeffreys()
+**Jeffreys confidence limits**  
+Calculates Jeffreys confidence limits for a simple proportion (apparent prevalence).  
+
+*Usage*  
+`binom.jeffreys(x, n, conf=0.95)`  
+
+#####binom.cp()
+**Clopper-Pearson exact confidence limits**  
+Calculates Clopper-Pearson exact binomial confidence limits for a simple proportion (apparent prevalence).
+
+*Usage*  
+`binom.cp(x, n, conf=0.95)`  
 
 #####n.ap()
 **Sample size for apparent prevalence**  
 Calculates sample size for estimating apparent prevalence (simple proportion).  
 
 *Usage*  
+`n.ap(p, precision, conf=0.95)`  
 
 
 ####True Prevalence and CI estimationn
 #####tp()
+**True prevalence**  
+Estimates true prevalence and confidence limits for given sample size and result, according to specified method.  
+
+*Usage*  
+`tp(x, n, se, sp, type = "blaker", conf=0.95)`  
+
 #####tp.normal()
+**Normal approximation confidence limits for true prevalence**  
+Estimates true prevalence and confidence limits for estimates based on normal approximation.  
+
+*Usage*  
+`tp.normal(x, n, se, sp, conf=0.95)`  
+
 #####n.tp()
+**Sample size for true prevalence**  
+ size for estimating true prevalence using normal approximation.  
+
+*Usage*  
+`n.tp(p, se, sp, precision, conf=0.95)`
+
 #####sd.tp()
+**Standard deviation of true prevalence estimate**  
+Calculates the standard deviation of true prevalence estimate assuming se and sp known exactly, used to calculate normal approximation CI for estimate.  
+
+*Usage*  
+`sd.tp(x, n, se, sp)`  
+
 
 ###Combining tests
 #####se.series()
