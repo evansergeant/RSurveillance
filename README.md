@@ -260,9 +260,25 @@ Calculates the discounted prior probability of disease freedom, after adjusting 
 `disc.prior(prior, p.intro)`  
 
 ###Prevalence estimation
-####Prevalence and CI estimation
+####Apparent Prevalence and CI estimation
+#####ap()
+#####binom.agresti()
+#####binom.jeffreys()
+#####binom.cp()
 
-####Sample size calculation
+
+#####n.ap()
+**Sample size for apparent prevalence**  
+Calculates sample size for estimating apparent prevalence (simple proportion).  
+
+*Usage*  
+
+
+####True Prevalence and CI estimationn
+#####tp()
+#####tp.normal()
+#####n.tp()
+#####sd.tp()
 
 ###Combining tests
 #####se.series()
