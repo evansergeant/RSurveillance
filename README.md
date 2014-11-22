@@ -33,7 +33,7 @@ Usage
 `RSurveillance` functions are organised into three broad areas of surveillance, namely representative freedom surveys,
 risk-based freedom surveys, probability of freedom estimation and prevalence estimation. Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories.
 
-###Representative freedom surveys
+###1. Representative freedom surveys
 ####Population sensitivity estimation
 #####sep.binom()
 **Binomial Population sensitivity**  
@@ -121,7 +121,7 @@ Calculates design prevalence required for given sample size and desired populati
 *Usage*  
 `pstar.calc(N=NA, n, sep, se)`  
 
-###Freedom methods for imperfect specificity and finite populations (FreeCalc)
+###2. Freedom methods for imperfect specificity and finite populations (FreeCalc)
 #### Population sensitivity estimation
 #####sep.freecalc()
 **FreeCalc population sensitivity  for imperfect test**  
@@ -138,19 +138,57 @@ Calculates population sensitivity for a finite population and allowing for imper
 `sep.hp(N,n,c=1,se,sp=1,pstar)`  
 
 #####sep.binom.imperfect()
+**Binomial population sensitivity for imperfect test**  
+Calculates population sensitivity for a large or unknown population and allowing for imperfect test sensitivity and specificity, using Binomial distribution an allowing for a variable cut-point number of positives to classify as positive.  
+
+*Usage*  
+`sep.binom.imperfect(n, c=1, se, sp=1, pstar)`  
 
 ####Population specificity estimation
-#####sph.hp()
 #####sph.binom()
+**Binomial population specificity for imperfect test **  
+Calculates population specificity for a large or unknown population, using the Binomial distribution and adjusting for cut-point number of positives.  
+
+*Usage*  
+`sph.binom(n, c=1, sp)`  
+
+#####sph.hp()
+**Hypergeometric population specificity calculation**  
+Calculates population specificity for a finite population and imperfect test, using Hypergeometric distribution.  
+
+*Usage*  
+`sph.hp(N,n,c=1,sp)`  
 
 ####Sample size estimation
 #####n.freecalc()
-#####n.c.freecalc()
+**Freecalc sample size for a finite population and specified cut-point number of positives**  
+Calculates sample size required for a specified population sensitivity, for a given population size, cut-point number of positives and other parameters, using Freecalc algorithm. All paramaters must be scalars.  
+
+*Usage*  
+`n.freecalc(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95)`  
+
 #####n.hp()
+**Hypergeometric (HerdPlus) sample size for finite population and specified cut-point number of positives**  
+Calculates sample size to achieve specified population sensitivity with population specificity >= specified minimum value, for given population size, cut-point number of positives and other parameters, all paramaters must be scalars. 
+
+*Usage*  
+`n.hp(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95)`  
+
+#####n.c.freecalc()
+**Freecalc optimum sample size and cut-point number of positives**  
+Calculates optimum sample size and cut-point number of positives to achieve specified population sensitivity, for given population size and other parameters, using freecalc algorithm, all paramaters must be scalars.  
+
+*Usage*  
+`n.c.freecalc(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95)`  
+
 #####n.c.hp()
+**Hypergeometric (HerdPlus) optimum sample size and cut-point number of positives**  
+Calculates optimum sample size and cut-point positives to achieve specified population sensitivity, for given population size and other parameters, all paramaters must be scalars.  
 
+*Usage*  
+`n.c.hpn(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95)`  
 
-###Risk-based freedom surveys 
+###3. Risk-based freedom surveys 
 ####Population sensitivity estimation
 #####sep.rb.bin()
 **Binomial risk-based population sensitivity**  
@@ -241,7 +279,7 @@ Calculates effective probability of infection (adjusted design prevalence) for e
 `epi.calc(pstar, rr, ppr)`  
 
 
-###Probability of freedom estimation
+###4. Probability of freedom estimation
 ####Probability of freedom
 #####pfree.1()
 **Probability of freedom for single time period**  
@@ -294,7 +332,7 @@ Calculates the discounted prior probability of disease freedom, after adjusting 
 *Usage*  
 `disc.prior(prior, p.intro)`  
 
-###Prevalence estimation
+###5. Prevalence estimation
 ####Apparent Prevalence and CI estimation
 #####ap()
 **Apparent prevalence**  
@@ -362,7 +400,7 @@ Calculates the standard deviation of true prevalence estimate assuming se and sp
 `sd.tp(x, n, se, sp)`  
 
 
-###Combining tests
+###6. Combining tests
 #####se.series()
 **Sensitivity of tests in series**  
 Calculates the combined sensitivity for multiple tests interpreted in series (assuming independence).  
