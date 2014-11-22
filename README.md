@@ -34,7 +34,7 @@ Usage
 risk-based freedom surveys, probability of freedom estimation and prevalence estimation. Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories.
 
 ###1. Representative freedom surveys
-####Population sensitivity estimation
+####1.1. Population sensitivity estimation
 #####sep.binom()
 **Binomial Population sensitivity**  
 Calculates population sensitivity for detecting disease, assuming imperfect test sensitivity and specificity and representative sampling, using binomial distribution (assumes large or unknown population size and that cut-point number of reactors for a positive result = 1). Used by function sep().  
@@ -84,7 +84,7 @@ Calculates population-level (system) sensitivity for representative 2-stage samp
 *Usage*  
 `sep.sys<- function(H=NA, N=NA, n, pstar.c, pstar.u, se=1)`  
 
-####Sample size estimation
+####1.2. Sample size estimation
 #####n.binom()
 **Binomial sample size**  
 Calculates sample size for demonstrating freedom or detecting disease using binomial approach and assuming imperfect test sensitivity, perfect test specificity and representative sampling.  
@@ -113,7 +113,7 @@ Calculates sample sizes for a 2-stage representative survey (sampling of cluster
 *Usage*  
 `n.2stage(H=NA, N=NA, sep.sys=0.95, sep.c, pstar.c, pstar.u, se=1)`  
 
-####Miscellaneous functions
+####1.3. Miscellaneous functions
 #####pstar.calc()
 **Design prevalence back-calculation**  
 Calculates design prevalence required for given sample size and desired population-level sensitivity, assuming imperfect test sensitivity, perfect test specificity and representative sampling.
@@ -122,7 +122,7 @@ Calculates design prevalence required for given sample size and desired populati
 `pstar.calc(N=NA, n, sep, se)`  
 
 ###2. Freedom methods for imperfect specificity and finite populations (FreeCalc)
-#### Population sensitivity estimation
+####2.1. Population sensitivity estimation
 #####sep.freecalc()
 **FreeCalc population sensitivity  for imperfect test**  
 Calculates population sensitivity for a finite population and allowing for imperfect test sensitivity and specificity, using Freecalc method.  
@@ -144,7 +144,7 @@ Calculates population sensitivity for a large or unknown population and allowing
 *Usage*  
 `sep.binom.imperfect(n, c=1, se, sp=1, pstar)`  
 
-####Population specificity estimation
+####2.2. Population specificity estimation
 #####sph.binom()
 **Binomial population specificity for imperfect test **  
 Calculates population specificity for a large or unknown population, using the Binomial distribution and adjusting for cut-point number of positives.  
@@ -159,7 +159,7 @@ Calculates population specificity for a finite population and imperfect test, us
 *Usage*  
 `sph.hp(N,n,c=1,sp)`  
 
-####Sample size estimation
+####2.3. Sample size estimation
 #####n.freecalc()
 **Freecalc sample size for a finite population and specified cut-point number of positives**  
 Calculates sample size required for a specified population sensitivity, for a given population size, cut-point number of positives and other parameters, using Freecalc algorithm. All paramaters must be scalars.  
@@ -189,7 +189,7 @@ Calculates optimum sample size and cut-point positives to achieve specified popu
 `n.c.hpn(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95)`  
 
 ###3. Risk-based freedom surveys 
-####Population sensitivity estimation
+####3.1. Population sensitivity estimation
 #####sep.rb.bin()
 **Binomial risk-based population sensitivity**  
 Calculates risk-based population sensitivity with a single risk factor, using binomial method (assumes a large population), allows for unit sensitivity to vary among risk strata.  
@@ -247,7 +247,7 @@ Calculates overall system sensitivity for multiple components, accounting for la
 `sse.combined(C = NA, pstar.c, rr, ppr, sep)`  
 
 
-####Sample size estimation
+####3.2. Sample size estimation
 #####n.rb()
 **Risk-based sample size**  
 Calculates sample size for risk-based sampling for a single risk factor and using binomial method.  
@@ -263,7 +263,7 @@ Calculates sample size for risk-based sampling for a single risk factor and vary
 `n.rb.varse(pstar, rr, ppr, spr, se, spr.rg, sep)`  
 
 
-####Miscellaneous functions
+####3.3. Miscellaneous functions
 #####adj.risk()
 **Adjusted risk**  
 Calculates adjusted risk for given relative risk and population proportions. This is an intermediate calculation in the calculation of effective probability of infection for risk-based surveillance activities  
@@ -280,7 +280,7 @@ Calculates effective probability of infection (adjusted design prevalence) for e
 
 
 ###4. Probability of freedom estimation
-####Probability of freedom
+####4.1. Probability of freedom
 #####pfree.1()
 **Probability of freedom for single time period**  
 Calculates the posterior probability (confidence) of disease freedom (negative predictive value) for a single time period.  
@@ -302,7 +302,7 @@ Calculates equilibrium probability of disease freedom and equilibrium prior prob
 *Usage*  
 `pfree.equ(sep, p.intro)`  
 
-####Miscellaneous functions
+####4.2. Miscellaneous functions
 #####n.pfree()
 **Sample size to achieve desired (posterior) probability of freedom**  
 Calculates the sample size required to achieve a given value for probability of disease freedom.  
@@ -324,7 +324,7 @@ Calculates the population sensitivity required to achieve a given value for the 
 *Usage*  
 `sep.prior(prior, p.intro)`  
 
-####Background functions
+####4.3. Background functions
 #####disc.prior()
 **Discounted prior probability of freedom**  
 Calculates the discounted prior probability of disease freedom, after adjusting for the probability of disease exceeding the design prevalence during the time period of the surveillance data being analysed.  
@@ -333,7 +333,7 @@ Calculates the discounted prior probability of disease freedom, after adjusting 
 `disc.prior(prior, p.intro)`  
 
 ###5. Prevalence estimation
-####Apparent Prevalence and CI estimation
+####5.1. Apparent Prevalence and CI estimation
 #####ap()
 **Apparent prevalence**  
 Estimates apparent prevalence and confidence limits for given sample size and result, assuming representative sampling.
@@ -370,7 +370,7 @@ Calculates sample size for estimating apparent prevalence (simple proportion).
 `n.ap(p, precision, conf=0.95)`  
 
 
-####True Prevalence and CI estimationn
+####5.2. True Prevalence and CI estimationn
 #####tp()
 **True prevalence**  
 Estimates true prevalence and confidence limits for given sample size and result, according to specified method.  
@@ -429,7 +429,7 @@ Calculates the combined specificity for multiple tests interpreted in parallel (
 *Usage*  
 `sp.parallel(sp)`  
 
-###Pooled testing
+###7. Pooled testing
 #####sep.pooled()
 **Pooled population sensitivity**  
 Calculates population sensitivity (sep) and population specificity (spp) assuming pooled sampling and allowing for imperfect sensitivity and specificity of the pooled test.  
