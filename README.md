@@ -113,7 +113,34 @@ Calculates design prevalence required for given sample size and desired populati
 *Usage*  
 `pstar.calc(N=NA, n, sep, se)`  
 
-###Freedom Surveys allowing for imperfect specificity
+###Freedom methods for imperfect specificity and finite populations (FreeCalc)
+#### Population sensitivity estimation
+#####sep.freecalc()
+**FreeCalc population sensitivity  for imperfect test**  
+Calculates population sensitivity for a finite population and allowing for imperfect test sensitivity and specificity, using Freecalc method.  
+
+*Usage*  
+`sep.freecalc(N,n,c=1,se,sp=1,pstar)`  
+
+#####sep.hp()
+**Hypergeometric (HerdPlus) population sensitivity for imperfect test**  
+Calculates population sensitivity for a finite population and allowing for imperfect test sensitivity and specificity, using Hypergeometric distribution.  
+
+*Usage*  
+`sep.hp(N,n,c=1,se,sp=1,pstar)`  
+
+#####sep.binom.imperfect()
+
+####Population specificity estimation
+#####sph.hp()
+#####sph.binom()
+
+####Sample size estimation
+#####n.freecalc()
+#####n.c.freecalc()
+#####n.hp()
+#####n.c.hp()
+
 
 ###Risk-based freedom surveys 
 ####Population sensitivity estimation
