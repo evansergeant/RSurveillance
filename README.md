@@ -20,6 +20,14 @@ RSurveillance has not yet been released on CRAN.
 To install the development version of RSurveillance, copy the current version of the R Library 
 from https://github.com/evansergeant/RSurveillanceLibrary to your local R library.
 
+Alternatively you can install the `devtools` package from CRAN and run
+the following in R:
+
+```r
+library(devtools)
+install_github("evansergeant/RSurveillance")
+```
+
 Usage
 -----
 `RSurveillance` functions are organised into three broad areas of surveillance, namely representative freedom surveys,
