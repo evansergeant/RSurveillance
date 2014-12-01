@@ -2,7 +2,7 @@ Package: RSurveillance
 Type: Package
 Title: Design and Analysis of Disease Surveillance Activities
 Version: 0.1.0
-Date: 2014-11-15
+Date: 2014-12-01
 Author: Evan Sergeant
 Maintainer: Evan Sergeant <evan@ausvet.com.au>
 Description: This package provides a range of functions for the design and
