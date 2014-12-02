@@ -17,3 +17,8 @@ LazyLoad: yes
 Imports:
     epitools,
     epiR
+Collate:
+    'freedom_functions_1.R'
+    'freedom_functions_2.R'
+    'prevalence_functions.R'
+    'risk_based_functions.R'
