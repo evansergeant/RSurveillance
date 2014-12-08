@@ -5,7 +5,7 @@ Version: 0.1.0
 Date: 2014-12-01
 Author: Evan Sergeant
 Maintainer: Evan Sergeant <evan@ausvet.com.au>
-Description: This package provides a range of functions for the design and
+Description: A range of functions for the design and
     analysis of disease surveillance activities. These functions were
     originally developed for animal health surveillance activities but can be
     equally applied to aquatic animal, wildlife, plant and human health
