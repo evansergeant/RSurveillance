@@ -15,12 +15,13 @@ at https://github.com/evansergeant/RSurveillance.
 Installation
 ------------
 
-RSurveillance has not yet been released on CRAN.
+To install the latest release on CRAN
 
-To install the development version of RSurveillance, copy the current version of the R Library 
-from https://github.com/evansergeant/RSurveillanceLibrary to your local R library.
+```r
+install.packages('rmatio')
+```
 
-Alternatively you can install the `devtools` package from CRAN and run
+To install the development version of RSurveillance, install the `devtools` package from CRAN and run
 the following in R:
 
 ```r
