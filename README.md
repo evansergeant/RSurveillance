@@ -374,14 +374,14 @@ Calculates sample size for estimating apparent prevalence (simple proportion).
 ####5.2. True Prevalence and CI estimationn
 #####tp()
 **True prevalence**  
-Estimates true prevalence and confidence limits for given sample size and result, according to specified method.  
+Estimates true prevalence and confidence limits for given sample size and result, according to specified method. Uses `epi.prev()` function (epiR package) tocalculate Clopper-Pearson, Wilson, Blaker and Sterne confidence limits and `tp.normal` (this package) to calculate normal approximation confidence limits for the true prevalence estimate.
 
 *Usage*  
 `tp(x, n, se, sp, type = "blaker", conf=0.95)`  
 
 #####tp.normal()
 **Normal approximation confidence limits for true prevalence**  
-Estimates true prevalence and confidence limits for estimates based on normal approximation.  
+Estimates true prevalence and confidence limits for estimates based on normal approximation. Uses function `sd.tp()` (this package) to calculate normal approximation confidence limits for the true prevalence estimate and `binom.wilson()` function (epitools package) to calculate Wilson confidence limits for the apparent prevalence estimate.
 
 *Usage*  
 `tp.normal(x, n, se, sp, conf=0.95)`  
@@ -395,7 +395,7 @@ Estimates true prevalence and confidence limits for estimates based on normal ap
 
 #####sd.tp()
 **Standard deviation of true prevalence estimate**  
-Calculates the standard deviation of true prevalence estimate assuming se and sp known exactly, used to calculate normal approximation CI for estimate.  
+Calculates the standard deviation of true prevalence estimate assuming se and sp known exactly, used in function `tp.normal()` to calculate normal approximation CI for estimate.  
 
 *Usage*  
 `sd.tp(x, n, se, sp)`  
