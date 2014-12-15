@@ -31,8 +31,16 @@ install_github("evansergeant/RSurveillance")
 
 Usage
 -----
-`RSurveillance` functions are organised into three broad areas of surveillance, namely representative freedom surveys,
-risk-based freedom surveys, probability of freedom estimation and prevalence estimation. Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories and additional information and examples are available in R using the `help()` and `example()` functions.
+`RSurveillance` functions are organised into several broad areas of surveillance, namely: 
+# representative freedom surveys,
+# freedom methods for imperfect tests and finite populations,
+# risk-based freedom surveys, 
+# probability of freedom estimation,  
+# prevalence estimation,
+# combined testing and
+# pooled testing for freedom. 
+
+Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories and additional information and examples are available in R using the `help()` and `example()` functions.
 
 ###1. Representative freedom surveys
 ####1.1. Population sensitivity estimation
@@ -430,7 +438,7 @@ Calculates the combined specificity for multiple tests interpreted in parallel (
 *Usage*  
 `sp.parallel(sp)`  
 
-###7. Pooled testing
+###7. Pooled testing for disease freedom
 #####sep.pooled()
 **Pooled population sensitivity**  
 Calculates population sensitivity (sep) and population specificity (spp) assuming pooled sampling and allowing for imperfect sensitivity and specificity of the pooled test.  
