@@ -32,13 +32,13 @@ install_github("evansergeant/RSurveillance")
 Usage
 -----
 `RSurveillance` functions are organised into several broad areas of surveillance, namely: 
-# representative freedom surveys,
-# freedom methods for imperfect tests and finite populations,
-# risk-based freedom surveys, 
-# probability of freedom estimation,  
-# prevalence estimation,
-# combined testing and
-# pooled testing for freedom. 
+1. representative freedom surveys,
+2. freedom methods for imperfect tests and finite populations,
+3. risk-based freedom surveys, 
+4. probability of freedom estimation,  
+5. prevalence estimation,
+6. combined testing and
+7. pooled testing for freedom. 
 
 Within these areas functions can be further grouped according to purpose (depending on surveillance area/purpose), such as sample size calculation, population sensitivity estimation, prevalence estimation and background functions. Specific functions are summarised below according to these categories and additional information and examples are available in R using the `help()` and `example()` functions.
 
