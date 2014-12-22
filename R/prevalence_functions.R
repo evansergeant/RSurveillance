@@ -183,25 +183,6 @@ n.tp<- function(p, se, sp, precision, conf=0.95) {
   return(n)
 }
 
-##' Standard deviation of true prevalence estimate
-##' @description Calculates the standard deviation of true prevalence estimate
-##' assuming se and sp known exactly, used to calculate normal approximation CI for estimate
-##' @param x number of positive results in sample (scalar or vector)
-##' @param n sample size (scalar or vector)
-##' @param se test sensitivity (scalar or vector)
-##' @param sp test specificity (scalar or vector)
-##' @return vector of standard deviation values for true prevalence estimates
-##' @keywords methods
-##' @export
-##' @examples 
-##' # example of sd.tp
-##' sd.tp(1:10, 20, 0.9, 0.99)
-sd.tp<- function(x, n, se, sp) {
-  ap<- x/n
-  var.tp<- ap*(1-ap)/(n*(se + sp - 1)^2)
-  return(sqrt(var.tp))
-} # end of sd.tp function
-
 
 ##' Normal approximation confidence limits for true prevalence
 ##' @description Estimates true prevalence and confidence limits for 
@@ -227,7 +208,8 @@ tp.normal<- function(x, n, se, sp, conf=0.95) {
   ap<- wilson.ci$proportion
   tp<- (ap + sp - 1)/(se + sp - 1)
   tp.ci<- array(0, dim = c(length(tp), 2))
-  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp(ap[i], n, se, sp)
+  sd.tp<- sqrt(ap*(1-ap)/(n*(se + sp - 1)^2))
+  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp
   ap<- cbind(est=ap, lower=wilson.ci$lower, upper=wilson.ci$upper)
   tp<- cbind(est=tp, lower=tp.ci[,1], upper=tp.ci[,2])
   return(list(ap=ap, tp=tp))
