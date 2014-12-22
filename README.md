@@ -401,13 +401,6 @@ Estimates true prevalence and confidence limits for estimates based on normal ap
 *Usage*
 `n.tp(p, se, sp, precision, conf=0.95)`
 
-#####sd.tp()
-**Standard deviation of true prevalence estimate**
-Calculates the standard deviation of true prevalence estimate assuming se and sp known exactly, used in function `tp.normal()` to calculate normal approximation CI for estimate.
-
-*Usage*
-`sd.tp(x, n, se, sp)`
-
 
 ###6. Combining tests
 #####se.series()
