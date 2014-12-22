@@ -209,7 +209,7 @@ tp.normal<- function(x, n, se, sp, conf=0.95) {
   tp<- (ap + sp - 1)/(se + sp - 1)
   tp.ci<- array(0, dim = c(length(tp), 2))
   sd.tp<- sqrt(ap*(1-ap)/(n*(se + sp - 1)^2))
-  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp
+  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp[i]
   ap<- cbind(est=ap, lower=wilson.ci$lower, upper=wilson.ci$upper)
   tp<- cbind(est=tp, lower=tp.ci[,1], upper=tp.ci[,2])
   return(list(ap=ap, tp=tp))
