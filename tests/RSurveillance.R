@@ -128,7 +128,7 @@ observed_result <- sep.prior(c(0.9, 0.95, 0.98, 0.99), 0.01)
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - n.pfree
-expected_result <- c(247, 319, 403, 461)
+expected_result <- c(249, 321, 405, 463)
 observed_result <- n.pfree(pfree = c(0.9, 0.95, 0.98, 0.99), prior = 0.5, 0.01, 0.01, 0.8, 1000)[[1]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 

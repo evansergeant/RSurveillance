@@ -618,8 +618,9 @@ sep.prior<- function(prior, p.intro) {
 ##' or vector of same length as pfree)
 ##' @param N population size (scalar
 ##' or vector of same length as pfree)
-##' @return a list of 2 elements, the first a vector of sample sizes
+##' @return a list of 3 elements, the first a vector of sample sizes
 ##' and the second a corresponding vector of population sensitivity values
+##' and the third a vector of adjusted priors
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -629,9 +630,10 @@ sep.prior<- function(prior, p.intro) {
 ##' n.pfree(pfree = c(0.9, 0.95, 0.98, 0.99), prior = 0.7, 0.01, 0.01, 0.8, 1000)
 ##' n.pfree(0.95, 0.7, 0.01, 0.1, 0.96)
 n.pfree<- function(pfree, prior, p.intro, pstar, se, N = NA) {
-  sep<- sep.pfree(prior, pfree)
+  adj.prior<- disc.prior(prior, p.intro)
+  sep<- sep.pfree(adj.prior, pfree)
   n<- n.freedom(N, sep, pstar, se)
-  return(list(n, sep))
+  return(list(n, sep, adj.prior))
 }
 
 
