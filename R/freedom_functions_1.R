@@ -82,7 +82,12 @@ sep.exact<- function(d=1, se = 1) {
 ##' N<- c(10, 50, 100, 250, 500)
 ##' sep.hypergeo(se=0.8, N=N, n=c(5, 25, 50, 125, 250), d = ceiling(0.01*N))
 sep.hypergeo<- function(N, n, d, se = 1) {
+  d<- min(N, d)
+  if (n == 0) {
+    sep<- 0
+  } else {
     sep<- 1 - (1 - se*n/N)^d
+  }
     return(sep)
 } # end of sep.hypergeo
 
@@ -158,8 +163,8 @@ sep<- function(N = NA, n, pstar, se=1) {
     if (!pstar.int) {
       d[!is.na(N)]<- ceiling(N[!is.na(N)] * pstar)
     }
-    sep[N == n & !is.na(N) & n != 0]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
-    sep[N != n & !is.na(N)]<- sep.hypergeo(N=N[N != n & !is.na(N)], n=n[N != n & !is.na(N)], d=d[N != n & !is.na(N)], se=se[N != n & !is.na(N)])
+    # sep[N == n & !is.na(N) & n != 0]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
+    sep[!is.na(N)]<- sep.hypergeo(N=N[N != n & !is.na(N)], n=n[N != n & !is.na(N)], d=d[N != n & !is.na(N)], se=se[N != n & !is.na(N)])
 
   }
   return(sep)
