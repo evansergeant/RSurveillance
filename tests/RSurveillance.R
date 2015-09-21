@@ -332,7 +332,7 @@ observed_result <- n.ap(seq(0.1, 0.5, by = 0.1), 0.05)
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - binom.agresti
-expected_result <- c(25, 200, 0.132067, 0.08558957, 0.1785444, 0.95)
+expected_result <- c(25, 200, 0.125, 0.08558957, 0.1785444, 0.95)
 observed_result <- binom.agresti(25, 200)[1,1:6]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 

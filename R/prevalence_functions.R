@@ -57,7 +57,7 @@ binom.agresti<- function(x, n, conf=0.95) {
   q.ac<- 1 - p.ac
   lc<- p.ac - z.conf*(p.ac*q.ac)^0.5 * n.ac^-0.5
   uc<- p.ac + z.conf*(p.ac*q.ac)^0.5 * n.ac^-0.5
-  return(data.frame(x=x, n=n, proportion=p.ac, lower=lc,
+  return(data.frame(x=x, n=n, proportion=x/n, lower=lc,
                upper=uc, conf.level=conf, method="agresti-coull"))
 }
 
