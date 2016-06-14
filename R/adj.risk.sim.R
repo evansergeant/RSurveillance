@@ -1,8 +1,9 @@
-##' Adjusted risk
+##' Adjusted risk for simulation models
 ##' @description Calculates adjusted risk for given 
 ##'   relative risk and population proportions. This is an intermediate calculation
 ##'   in the calculation of effective probability of infection for risk-based 
-##'   surveillance activities
+##'   surveillance activities. This function is similar to Adj.risk, except is 
+##'   adapted for use with multiple simulations instead of single RR values.
 ##' @param rr relative risk values (matrix of values, columns corresponding 
 ##' to the number of risk strata, rows corresponding to number of iterations for simulation )
 ##' @param ppr population proportions corresponding to 
@@ -11,7 +12,7 @@
 ##' @keywords methods
 ##' @export
 ##' @examples 
-##' # examples for adj.risk
+##' # examples for adj.risk.sim
 ##' its<- 10
 ##' risk.cat<- 3
 ##' rr<- matrix(0, nrow=its, ncol=risk.cat)

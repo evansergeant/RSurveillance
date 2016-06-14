@@ -367,4 +367,8 @@ expected_result <- c(0.02941176, 0, 0.09291029)
 observed_result <- tp(25, 200, 0.95, 0.9, "c-p")[[2]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
+## Test case - adj.risk.sim
+expected_result <- c(4.081633, 2.040816, 0.4081633)
+observed_result <- adj.risk.sim(matrix(c(10, 5, 1), nrow=1), matrix(c(0.05, 0.25, 0.7), nrow=1))
+stopifnot(all(abs(observed_result - expected_result) < tol))
 
