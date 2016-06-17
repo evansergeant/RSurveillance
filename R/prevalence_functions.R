@@ -57,7 +57,7 @@ binom.agresti<- function(x, n, conf=0.95) {
   q.ac<- 1 - p.ac
   lc<- p.ac - z.conf*(p.ac*q.ac)^0.5 * n.ac^-0.5
   uc<- p.ac + z.conf*(p.ac*q.ac)^0.5 * n.ac^-0.5
-  return(data.frame(x=x, n=n, proportion=p.ac, lower=lc,
+  return(data.frame(x=x, n=n, proportion=x/n, lower=lc,
                upper=uc, conf.level=conf, method="agresti-coull"))
 }
 
@@ -143,8 +143,8 @@ ap<- function(x, n, type = "wilson", conf = 0.95) {
   types<- c("normal", "clopper-pearson", "wilson", "agresti-coull", "jeffreys", "all")
 #  require(epitools)
   ap.exact<- binom.cp(x, n, conf)
-  ap.normal<- epitools::binom.approx(x, n, conf)
-  ap.wilson<- epitools::binom.wilson(x, n, conf)
+  ap.normal<- data.frame(epitools::binom.approx(x, n, conf), method = "normal approx.")
+  ap.wilson<- data.frame(epitools::binom.wilson(x, n, conf), method = "wilson")
   ap.jeffreys<- binom.jeffreys(x, n, conf)
   ap.agresti<- binom.agresti(x, n, conf)
   ap.all<- list(normal=ap.normal, "exact"=ap.exact, "wilson"=ap.wilson, "jeffreys"=ap.jeffreys, "agresti" = ap.agresti)
@@ -183,25 +183,6 @@ n.tp<- function(p, se, sp, precision, conf=0.95) {
   return(n)
 }
 
-##' Standard deviation of true prevalence estimate
-##' @description Calculates the standard deviation of true prevalence estimate
-##' assuming se and sp known exactly, used to calculate normal approximation CI for estimate
-##' @param x number of positive results in sample (scalar or vector)
-##' @param n sample size (scalar or vector)
-##' @param se test sensitivity (scalar or vector)
-##' @param sp test specificity (scalar or vector)
-##' @return vector of standard deviation values for true prevalence estimates
-##' @keywords methods
-##' @export
-##' @examples 
-##' # example of sd.tp
-##' sd.tp(1:10, 20, 0.9, 0.99)
-sd.tp<- function(x, n, se, sp) {
-  ap<- x/n
-  var.tp<- ap*(1-ap)/(n*(se + sp - 1)^2)
-  return(sqrt(var.tp))
-} # end of sd.tp function
-
 
 ##' Normal approximation confidence limits for true prevalence
 ##' @description Estimates true prevalence and confidence limits for 
@@ -227,7 +208,8 @@ tp.normal<- function(x, n, se, sp, conf=0.95) {
   ap<- wilson.ci$proportion
   tp<- (ap + sp - 1)/(se + sp - 1)
   tp.ci<- array(0, dim = c(length(tp), 2))
-  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp(ap[i], n, se, sp)
+  sd.tp<- sqrt(ap*(1-ap)/(n*(se + sp - 1)^2))
+  for (i in 1:length(tp)) tp.ci[i,]<- tp[i] + c(-1, 1)* z.conf*sd.tp[i]
   ap<- cbind(est=ap, lower=wilson.ci$lower, upper=wilson.ci$upper)
   tp<- cbind(est=tp, lower=tp.ci[,1], upper=tp.ci[,2])
   return(list(ap=ap, tp=tp))

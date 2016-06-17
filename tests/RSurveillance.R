@@ -128,8 +128,8 @@ observed_result <- sep.prior(c(0.9, 0.95, 0.98, 0.99), 0.01)
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - n.pfree
-expected_result <- c(247, 319, 403, 461)
-observed_result <- n.pfree(pfree = c(0.9, 0.95, 0.98, 0.99), prior = 0.5, 0.01, 0.01, 0.8, 1000)
+expected_result <- c(249, 321, 405, 463)
+observed_result <- n.pfree(pfree = c(0.9, 0.95, 0.98, 0.99), prior = 0.5, 0.01, 0.01, 0.8, 1000)[[1]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - se.series
@@ -332,7 +332,7 @@ observed_result <- n.ap(seq(0.1, 0.5, by = 0.1), 0.05)
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - binom.agresti
-expected_result <- c(25, 200, 0.132067, 0.08558957, 0.1785444, 0.95)
+expected_result <- c(25, 200, 0.125, 0.08558957, 0.1785444, 0.95)
 observed_result <- binom.agresti(25, 200)[1,1:6]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
@@ -356,15 +356,9 @@ expected_result <- 174
 observed_result <- n.tp(0.1, 0.9, 0.99, 0.05)
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
-## Test case - sd.tp
-expected_result <- c(0.05475727, 0.07537308, 0.08971191, 0.10049744,
-                     0.10879167, 0.11513428, 0.11983556, 0.12308372,
-                     0.12499211, 0.12562180)
-observed_result <- sd.tp(1:10, 20, 0.9, 0.99)
-stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - tp.normal
-expected_result <- c(0.2228464, 0.2144773, 0.2312155)
+expected_result <- c(0.2228464, 0.1412036, 0.3044893)
 observed_result <- tp.normal(25, 120, 0.9, 0.99)[[2]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 

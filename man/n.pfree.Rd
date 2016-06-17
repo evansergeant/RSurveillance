@@ -24,7 +24,9 @@ or vector of same length as pfree)}
 or vector of same length as pfree)}
 }
 \value{
-vector of sample sizes
+a list of 3 elements, the first a vector of sample sizes
+and the second a corresponding vector of population sensitivity values
+and the third a vector of adjusted priors
 }
 \description{
 Calculates the sample size required to achieve a

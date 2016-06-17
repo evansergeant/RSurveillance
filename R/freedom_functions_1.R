@@ -82,7 +82,12 @@ sep.exact<- function(d=1, se = 1) {
 ##' N<- c(10, 50, 100, 250, 500)
 ##' sep.hypergeo(se=0.8, N=N, n=c(5, 25, 50, 125, 250), d = ceiling(0.01*N))
 sep.hypergeo<- function(N, n, d, se = 1) {
-  sep<- 1 - (1 - se*n/N)^d
+  d<- min(N, d)
+  if (n == 0) {
+    sep<- 0
+  } else {
+    sep<- 1 - (1 - se*n/N)^d
+  }
     return(sep)
 } # end of sep.hypergeo
 
@@ -146,9 +151,6 @@ sep<- function(N = NA, n, pstar, se=1) {
   } else if (pstar.int & (pstar < 1 | pstar != round(pstar, 0))) {
     err.msg<- "Design prevalence must be an integer >= 1 if it is specified as an integer."
     return(err.msg)
-  } else if (!pstar.int & (pstar >= 1 | pstar <= 0)) {
-    err.msg<- "Design prevalence must be >0 and <1 if it is specified as a proportion."
-    return(err.msg)
   }
   # sep calculations
   sep<- numeric(length(n))
@@ -161,8 +163,8 @@ sep<- function(N = NA, n, pstar, se=1) {
     if (!pstar.int) {
       d[!is.na(N)]<- ceiling(N[!is.na(N)] * pstar)
     }
-    sep[N == n & !is.na(N)]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
-    sep[N != n & !is.na(N)]<- sep.hypergeo(N=N[N != n & !is.na(N)], n=n[N != n & !is.na(N)], d=d[N != n & !is.na(N)], se=se[N != n & !is.na(N)])
+    # sep[N == n & !is.na(N) & n != 0]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
+    sep[!is.na(N)]<- sep.hypergeo(N=N[N != n & !is.na(N)], n=n[N != n & !is.na(N)], d=d[N != n & !is.na(N)], se=se[N != n & !is.na(N)])
 
   }
   return(sep)
@@ -618,7 +620,9 @@ sep.prior<- function(prior, p.intro) {
 ##' or vector of same length as pfree)
 ##' @param N population size (scalar
 ##' or vector of same length as pfree)
-##' @return vector of sample sizes
+##' @return a list of 3 elements, the first a vector of sample sizes
+##' and the second a corresponding vector of population sensitivity values
+##' and the third a vector of adjusted priors
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -628,9 +632,10 @@ sep.prior<- function(prior, p.intro) {
 ##' n.pfree(pfree = c(0.9, 0.95, 0.98, 0.99), prior = 0.7, 0.01, 0.01, 0.8, 1000)
 ##' n.pfree(0.95, 0.7, 0.01, 0.1, 0.96)
 n.pfree<- function(pfree, prior, p.intro, pstar, se, N = NA) {
-  sep<- sep.pfree(prior, pfree)
+  adj.prior<- disc.prior(prior, p.intro)
+  sep<- sep.pfree(adj.prior, pfree)
   n<- n.freedom(N, sep, pstar, se)
-  return(n)
+  return(list(n, sep, adj.prior))
 }
 
 
