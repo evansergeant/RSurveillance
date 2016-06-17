@@ -372,3 +372,25 @@ expected_result <- c(4.081633, 2.040816, 0.4081633)
 observed_result <- adj.risk.sim(matrix(c(10, 5, 1), nrow=1), matrix(c(0.05, 0.25, 0.7), nrow=1))
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
+## Test case - n.rb.2stage.1
+expected_result <- c(39, 16)
+observed_result <- n.rb.2stage.1(c(3,1), c(0.2,0.8), c(0.7,0.3),0.05, 0.1, 0.9, 0.95, 0.99)[[1]]
+stopifnot(all(abs(observed_result - expected_result) < tol))
+
+## Test case - n.rb.2stage.2
+expected_result <- c(64, 64, 30)
+rr.c<- c(5,3,1)
+ppr.c<- c(0.1, 0.2, 0.7)
+spr.c<- c(0.4, 0.4, 0.2)
+rr.u<- c(4,1)
+ppr.u<- c(0.1, 0.9)
+spr.u<- c(1, 0)
+observed_result <-  n.rb.2stage.2(rr.c, ppr.c, spr.c, pstar.c=0.02, rr.u, ppr.u, spr.u, 0.1, se=0.9, sep.c=0.5, sep.sys=0.95)[[1]][[1]] 
+stopifnot(all(abs(observed_result - expected_result) < tol))
+
+## Test case - sep.passive
+expected_result <- c(0.04702392, 0.3822397)
+observed_result <-  c(sep.passive(c(0.1, 0.5, 0.95, 0.99), 0.98, 0.9, 1000, 5, 0.01)[[1]], sep.passive(c(0.1, 0.5, 0.95, 0.99), 0.98, 0.9, 1000, 5, 0.01)[[2]])
+stopifnot(all(abs(observed_result - expected_result) < tol))
+
+
