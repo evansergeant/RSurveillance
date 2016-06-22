@@ -21,6 +21,7 @@
 ##' @param pstar design prevalence as a proportion (scalar or vector of same length as n)
 ##' @param se unit sensitivity of test (proportion), default = 1 (scalar or vector of same length as n)
 ##' @param sp unit specificity of test (proportion), default = 1 (scalar or vector of same length as n)
+##' @param dig number of digits for rounding of results
 ##' @return vector of population-level sensitivities
 ##' @keywords methods
 ##' @include freedom_functions_1.R
@@ -32,8 +33,8 @@
 ##' prev<- 0.05
 ##' sens<- 0.9
 ##' sep.binom(tested, prev, sens)
-sep.binom<- function(n, pstar, se = 1, sp = 1) {
-    sep<- 1 - (1 - (se*pstar+(1-sp)*(1-pstar)))^n
+sep.binom<- function(n, pstar, se = 1, sp = 1, dig = 5) {
+    sep<- round(1 - (1 - (se*pstar+(1-sp)*(1-pstar)))^n, dig)
     return(sep)
 } # end of sep.binom
 
@@ -44,6 +45,7 @@ sep.binom<- function(n, pstar, se = 1, sp = 1) {
 ##' @param se unit sensitivity of test (proportion), scalar or vector
 ##' @param d expected number of infected units in population (=design prevalence*N
 ##'   rounded to next integer), scalar or vector of same length as se
+##' @param dig number of digits for rounding of results
 ##' @return vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -54,8 +56,8 @@ sep.binom<- function(n, pstar, se = 1, sp = 1) {
 ##' sens<- 0.8
 ##' sep.exact(d=inf, se=sens)
 ##' sep.exact(se=0.8, d = ceiling(0.01*c(10, 50, 100, 250, 500)))
-sep.exact<- function(d=1, se = 1) {
-  sep<- 1 - (1 - se)^d
+sep.exact<- function(d=1, se = 1, dig = 5) {
+  sep<- round(1 - (1 - se)^d, dig)
     return(sep)
 } # end of sep.exact
 
@@ -70,6 +72,7 @@ sep.exact<- function(d=1, se = 1) {
 ##' @param d expected number of infected units in population (=design prevalence*N
 ##'   rounded to next integer)
 ##' @param se unit sensitivity of test (proportion), scalar or vector of same length as n
+##' @param dig number of digits for rounding of results
 ##' @return a vector of population-level sensitivities. if all n <= corresponding N then 
 ##' vector is numeric, otherwise vector is character and elements where n>N are recorded as such
 ##' @keywords methods
@@ -82,9 +85,9 @@ sep.exact<- function(d=1, se = 1) {
 ##' sep.hypergeo(N=100, n=50, d=inf, se=sens)
 ##' N<- c(10, 50, 100, 250, 500)
 ##' sep.hypergeo(se=0.8, N=N, n=c(5, 25, 50, 125, 250), d = ceiling(0.01*N))
-sep.hypergeo<- function(N, n, d, se = 1) {
+sep.hypergeo<- function(N, n, d, se = 1, dig = 5) {
   d<- min(N, d)
-  sep<- 1 - (1 - se*n/N)^d
+  sep<- round(1 - (1 - se*n/N)^d, dig)
   sep[n == 0]<- 0
   sep[n>N]<- "n>N"
     return(sep)
@@ -119,6 +122,7 @@ spp<- function(n, sp) {
 ##' @param pstar design prevalence as a proportion or integer, scalar
 ##'   or vector of same length as n
 ##' @param se unit sensitivity, scalar or vector of same length as n
+##' @param dig number of digits for rounding of results
 ##' @return a vector of population-level sensitivities
 ##' @keywords methods
 ##' @export
@@ -137,16 +141,13 @@ spp<- function(n, sp) {
 ##' N<- c(55, 134, NA, 44, 256)
 ##' n<- c(15, 30, 28, 15, 33)
 ##' sep(N, n, 0.1, 0.95)
-sep<- function(N = NA, n, pstar, se=1) {
+sep<- function(N = NA, n, pstar, se=1, dig = 5) {
   # check for errors in inputs
   # pstar.int = flag to indicate proportion (F) or integer (T) design prevalence
   pstar.int<- !(pstar < 1 & pstar > 0)
   if (sum(is.na(N)) > 0 & pstar.int) {
     err.msg<- "Population size (N) must be provided if design prevalence is an integer."
     return(err.msg)
-#  } else if (sum(n[!is.na(N)] > N[!is.na(N)]) > 0) {
-#    err.msg<- "Sample size (n) cannot be greater than population size (N)."
-#    return(err.msg)
   } else if (pstar.int & (pstar < 1 | pstar != round(pstar, 0))) {
     err.msg<- "Design prevalence must be a proportion OR a positive integer."
     return(err.msg)
@@ -157,13 +158,12 @@ sep<- function(N = NA, n, pstar, se=1) {
   if (length(se) == 1) se<- rep(se, length(n))
   d<- pstar
   if (length(d) == 1) d<- rep(d, length(n))
-  if (length(sep[is.na(N)]) >0) sep[is.na(N)]<- sep.binom(n=n[is.na(N)], pstar=pstar, se=se[is.na(N)])
+  if (length(sep[is.na(N)]) >0) sep[is.na(N)]<- sep.binom(n=n[is.na(N)], pstar=pstar, se=se[is.na(N)], dig)
   if (sum(!is.na(N)) != 0) {
     if (!pstar.int) {
       d[!is.na(N)]<- ceiling(N[!is.na(N)] * pstar)
     }
-    # sep[N == n & !is.na(N) & n != 0]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
-    sep[!is.na(N)]<- sep.hypergeo(N=N[!is.na(N)], n=n[!is.na(N)], d=d[!is.na(N)], se=se[!is.na(N)])
+    sep[!is.na(N)]<- sep.hypergeo(N=N[!is.na(N)], n=n[!is.na(N)], d=d[!is.na(N)], se=se[!is.na(N)], dig)
 
   }
   return(sep)
