@@ -70,7 +70,8 @@ sep.exact<- function(d=1, se = 1) {
 ##' @param d expected number of infected units in population (=design prevalence*N
 ##'   rounded to next integer)
 ##' @param se unit sensitivity of test (proportion), scalar or vector of same length as n
-##' @return a vector of population-level sensitivities
+##' @return a vector of population-level sensitivities. if all n <= corresponding N then 
+##' vector is numeric, otherwise vector is character and elements where n>N are recorded as such
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -83,11 +84,9 @@ sep.exact<- function(d=1, se = 1) {
 ##' sep.hypergeo(se=0.8, N=N, n=c(5, 25, 50, 125, 250), d = ceiling(0.01*N))
 sep.hypergeo<- function(N, n, d, se = 1) {
   d<- min(N, d)
-  if (n == 0) {
-    sep<- 0
-  } else {
-    sep<- 1 - (1 - se*n/N)^d
-  }
+  sep<- 1 - (1 - se*n/N)^d
+  sep[n == 0]<- 0
+  sep[n>N]<- "n>N"
     return(sep)
 } # end of sep.hypergeo
 
@@ -145,11 +144,11 @@ sep<- function(N = NA, n, pstar, se=1) {
   if (sum(is.na(N)) > 0 & pstar.int) {
     err.msg<- "Population size (N) must be provided if design prevalence is an integer."
     return(err.msg)
-  } else if (sum(n[!is.na(N)] > N[!is.na(N)]) > 0) {
-    err.msg<- "Sample size (n) cannot be greater than population size (N)."
-    return(err.msg)
+#  } else if (sum(n[!is.na(N)] > N[!is.na(N)]) > 0) {
+#    err.msg<- "Sample size (n) cannot be greater than population size (N)."
+#    return(err.msg)
   } else if (pstar.int & (pstar < 1 | pstar != round(pstar, 0))) {
-    err.msg<- "Design prevalence must be an integer >= 1 if it is specified as an integer."
+    err.msg<- "Design prevalence must be a proportion OR a positive integer."
     return(err.msg)
   }
   # sep calculations
@@ -164,7 +163,7 @@ sep<- function(N = NA, n, pstar, se=1) {
       d[!is.na(N)]<- ceiling(N[!is.na(N)] * pstar)
     }
     # sep[N == n & !is.na(N) & n != 0]<- sep.exact(d=d[N == n & !is.na(N)], se=se[N == n & !is.na(N)])
-    sep[!is.na(N)]<- sep.hypergeo(N=N[N != n & !is.na(N)], n=n[N != n & !is.na(N)], d=d[N != n & !is.na(N)], se=se[N != n & !is.na(N)])
+    sep[!is.na(N)]<- sep.hypergeo(N=N[!is.na(N)], n=n[!is.na(N)], d=d[!is.na(N)], se=se[!is.na(N)])
 
   }
   return(sep)
