@@ -158,7 +158,7 @@ sep<- function(N = NA, n, pstar, se=1, dig = 5) {
   if (length(se) == 1) se<- rep(se, length(n))
   d<- pstar
   if (length(d) == 1) d<- rep(d, length(n))
-  if (length(sep[is.na(N)]) >0) sep[is.na(N)]<- sep.binom(n=n[is.na(N)], pstar=pstar, se=se[is.na(N)], dig)
+  if (length(sep[is.na(N)]) >0) sep[is.na(N)]<- sep.binom(n=n[is.na(N)], pstar=pstar, se=se[is.na(N)], dig=dig)
   if (sum(!is.na(N)) != 0) {
     if (!pstar.int) {
       d[!is.na(N)]<- ceiling(N[!is.na(N)] * pstar)
