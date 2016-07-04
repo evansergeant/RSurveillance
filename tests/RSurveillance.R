@@ -393,4 +393,11 @@ expected_result <- c(0.04702392, 0.3822397)
 observed_result <-  c(sep.passive(c(0.1, 0.5, 0.95, 0.99), 0.98, 0.9, 1000, 5, 0.01)[[1]], sep.passive(c(0.1, 0.5, 0.95, 0.99), 0.98, 0.9, 1000, 5, 0.01)[[2]])
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
-
+## Test case - inp.dist
+dist<- c("beta", "beta", "pert", "fixed", "unif")
+parm<- c(91, 11, NA, 5, 5, NA, 2, 3, 5, 1, NA, NA, 0, 1, NA)
+parm<- matrix(parm, byrow = T, nrow = 5)
+set.seed(99)
+expected_result <- c(61.27359)
+observed_result <-  sum(inp.dist(10, dist, labels, param))
+stopifnot(all(abs(observed_result - expected_result) < tol))
