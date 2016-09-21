@@ -49,7 +49,7 @@ sep.freecalc <- function(N,n,c=1,se,sp=1,pstar) {           # code checked by Ev
           } else {fact <- 0}
         }
       } else { fact <- 0}
-      newprod <- dhyper(y,d,N-d,n,log=F)*fact
+      newprod <- stats::dhyper(y,d,N-d,n,log=F)*fact
       prod <- prod + newprod
     }
   }
@@ -87,7 +87,7 @@ sep.hp <- function(N,n,c=1,se,sp=1,pstar) {
   EY <- EX*se+(N-EX)*(1-sp)     # E(number of test pos animals in the herd)
   Y  <- floor(EY)
   m  <- EY-Y                   # modulus(EY,1)
-  SeH <-m*phyper(c-1,Y+1,N-Y-1,n,lower.tail=F)+(1-m)*phyper(c-1,Y,N-Y,n,lower.tail=F)
+  SeH <-m*stats::phyper(c-1,Y+1,N-Y-1,n,lower.tail=F)+(1-m)*stats::phyper(c-1,Y,N-Y,n,lower.tail=F)
   return(SeH)
 }
 
@@ -115,7 +115,7 @@ sep.hp <- function(N,n,c=1,se,sp=1,pstar) {
 ##' sep.binom.imperfect(30, 1, 0.9, 0.98, 0.1)
 sep.binom.imperfect<- function(n, c=1, se, sp=1, pstar) {
   P.Pos<- pstar * se + (1 - pstar)*(1 - sp)
-  sep<- 1 - pbinom(c-1, n, P.Pos)
+  sep<- 1 - stats::pbinom(c-1, n, P.Pos)
   return(sep)
 }
 
@@ -142,7 +142,7 @@ sph.hp <- function(N,n,c=1,sp) {
   EY <- N*(1-sp)                # E(number of test pos animals in the herd)
   Y  <- floor(EY)
   m  <- EY-Y                   # modulus(EY,1)
-  SpH <-m*phyper(c-1,Y+1,N-Y-1,n)+(1-m)*phyper(c-1,Y,N-Y,n)
+  SpH <-m*stats::phyper(c-1,Y+1,N-Y-1,n)+(1-m)*stats::phyper(c-1,Y,N-Y,n)
   return(SpH)
 }
 
@@ -167,7 +167,7 @@ sph.hp <- function(N,n,c=1,sp) {
 ##' sph.binom(100, 3, 95:100/100)
 ##' sph.binom(c(5, 10, 15, 20, 30, 50, 100, 200), 2, 0.98)
 sph.binom<- function(n, c=1, sp) {
-  sph<- pbinom(c-1, n, 1 - sp)
+  sph<- stats::pbinom(c-1, n, 1 - sp)
   return(sph)
 }
 

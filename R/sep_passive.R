@@ -22,7 +22,7 @@
 ##' length equal to the number of rows in step.p
 ##' @keywords methods
 ##' @export
-##' @examples
+##' @examples 
 ##' # examples for sep.passive
 ##' sep.passive(c(0.1, 0.2, 0.9, 0.99), 0.98, 0.9, 1000, 5, 0.01)
 ##' sep.passive(c(0.1, 0.5, 0.95, 0.99), 0.98, 0.9, 1000, 5, 0.01)

@@ -2,11 +2,7 @@ Package: RSurveillance
 Type: Package
 Title: Design and Analysis of Disease Surveillance Activities
 Version: 0.1.1
-<<<<<<< HEAD
-Date: 2014-12-01
-=======
-Date: 2015-??-??
->>>>>>> origin/master
+Date: 2016-09-30
 Author: Evan Sergeant
 Maintainer: Evan Sergeant <evan@ausvet.com.au>
 Description: A range of functions for the design and
@@ -20,9 +16,16 @@ License: GPL-2|GPL-3
 LazyLoad: yes
 Imports:
     epitools,
-    epiR
+    epiR, 
+    stats,
+    mc2d
 Collate:
+    'adj_risk_sim.R'
     'freedom_functions_1.R'
     'freedom_functions_2.R'
+    'n_rb2stage.R'
     'prevalence_functions.R'
     'risk_based_functions.R'
+    'sep_passive.R'
+    'sse_rb2stage.R'
+RoxygenNote: 5.0.1

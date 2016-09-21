@@ -86,10 +86,10 @@ sep.exact<- function(d=1, se = 1, dig = 5) {
 ##' N<- c(10, 50, 100, 250, 500)
 ##' sep.hypergeo(se=0.8, N=N, n=c(5, 25, 50, 125, 250), d = ceiling(0.01*N))
 sep.hypergeo<- function(N, n, d, se = 1, dig = 5) {
-  d<- min(N, d)
+  d<- pmin(N, d)
   sep<- round(1 - (1 - se*n/N)^d, dig)
   sep[n == 0]<- 0
-  sep[n>N]<- "n>N"
+  sep[n>N]<- NA
     return(sep)
 } # end of sep.hypergeo
 
