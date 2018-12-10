@@ -531,6 +531,7 @@ pfree.1<- function(sep, p.intro, prior=0.5) {
 ##' @param p.intro probability of introduction for each time period (scalar
 ##'   or vector of same length as sep)
 ##' @param prior prior probability of freedom before surveillance (scalar)
+##' @param discount.1 logical variable whether or not to discount first time period.
 ##' @return \code{data.frame} with columns for sep, p.intro, discounted
 ##'   prior, probability of freedom, equilibrium probability of freedom
 ##'   and equilibrium prior
@@ -539,13 +540,16 @@ pfree.1<- function(sep, p.intro, prior=0.5) {
 ##' @examples
 ##' # examples for pfree.calc
 ##' pfree.calc(0.8, 0.01, 0.5)
+##' pfree.calc(0.8, 0.01, 0.5, FALSE)
 ##' pfree.calc(rep(0.6,24), 0.01, 0.5)
+##' pfree.calc(rep(0.6,24), 0.01, 0.5, FALSE)
 ##' pfree.calc(runif(10, 0.4, 0.6), 0.01, 0.5)
 ##' pfree.calc(runif(10, 0.4, 0.6), runif(10, 0.005, 0.015), 0.5)
-pfree.calc<- function(sep, p.intro, prior=0.5) {
+pfree.calc<- function(sep, p.intro, prior=0.5, discount.1 = TRUE) {
   if (length(p.intro) < length(sep)) p.intro<- rep(p.intro, length(sep))
   prior.disc<- numeric(length(sep))
   pfree<- numeric(length(sep))
+  if (!discount.1) p.intro[1]<- 0
   pfree[1]<- pfree.1(sep[1], p.intro[1], prior[1])[,4]
   prior.disc[1]<- disc.prior(prior, p.intro[1])
   if (length(sep) > 1) {
