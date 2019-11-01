@@ -210,13 +210,8 @@ observed_result <- n.c.hp(65,0.95,c=5,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)[[1
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - n.freecalc
-expected_result <- c(10, 0.4411522, 0.9043821, 65, 1, 0.05)
-observed_result <- n.freecalc(65,0.95,c=1,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)[[1]]
-stopifnot(all(abs(observed_result - expected_result) < tol))
-
-## Test case - n.c.freecalc
-expected_result <- c(27, 0.9555394, 0.9999933, 120, 1, 0.1)
-observed_result <- n.c.freecalc(120,0.95,c=5,se=0.9,sp=0.99,pstar=0.1, minSpH=0.9)[[1]]
+expected_result <- c(80, 2, 0.0451, 0.0466, 0.9549, 0.9534)
+observed_result <- n.freecalc(N=100, se=0.95,sp=0.99,pstar=0.05, type1 = 0.05, type2 = 0.05)[[1]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - adj.risk
@@ -363,7 +358,7 @@ observed_result <- tp.normal(25, 120, 0.9, 0.99)[[2]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 
 ## Test case - tp
-expected_result <- c(0.02941176, 0, 0.09291029)
+expected_result <- c(0.02941176, -0.02052666, 0.09291029)
 observed_result <- tp(25, 200, 0.95, 0.9, "c-p")[[2]]
 stopifnot(all(abs(observed_result - expected_result) < tol))
 

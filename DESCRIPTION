@@ -17,7 +17,8 @@ LazyLoad: yes
 Imports:
     epitools,
     epiR, 
-    stats,
+    stats
+Suggests:
     mc2d
 Collate:
     'adj_risk_sim.R'

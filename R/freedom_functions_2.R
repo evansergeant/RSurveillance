@@ -287,75 +287,92 @@ n.c.hp<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
 ##' @export
 ##' @examples 
 ##' # examples for n.freecalc
-##' n.freecalc(65,0.95,c=1,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)[[1]]
-##' n.freecalc(65,0.95,c=2,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)[[1]]
-##' n.freecalc(65,0.95,c=3,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)
-n.freecalc<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
-  pa.int<- ifelse(pstar > 0 & pstar < 1, F, T)
-  SeH <- 0
-  SpH <- 0
-  lastSeH <- -1
-  done<- F
-  for (n in 1:N) {
-    SeH[n] <- sep.freecalc(N,n,c,se,sp,pstar)
-    SpH[n] <-sph.binom(n, c, sp)
-    newSeH <- (SpH[n] >= minSpH)*SeH[n]
-    if ((newSeH>lastSeH)*!done) {
-      lastSeH <- newSeH
-      lastSpH <- SpH[n]
-      lastn <- n
-      if (newSeH>=sep) done<- TRUE
-    }
-  }
-  results<- data.frame(n=lastn, SeP=lastSeH, SpP=lastSpH, N, c=c, pstar=pstar)
-  return(list("Suggested n"=results, "Detailed results"=data.frame(n=1:n, SeP=SeH, SpP=SpH)))
-}
-
-
-##' Freecalc optimum sample size and cut-point number 
-##' of positives
-##' @description Calculates optimum sample size and cut-point number of positives 
-##'   to achieve specified population sensitivity, for 
-##'   given population size and other parameters, using freecalc algorithm, 
-##'   all paramaters must be scalars
-##' @param N population size
-##' @param sep target population sensitivity
-##' @param c The maximum allowed cut-point number of positives to classify a cluster
-##'   as positive, default=1, if positives < c result is negative, >= c is positive
-##' @param se test unit sensitivity
-##' @param sp test unit specificity, default=1
-##' @param pstar design prevalence as a proportion or integer (number of infected units)
-##' @param minSpH minimium desired population specificity
-##' @return a list of 3 elements, a dataframe with 1 row and six columns for
-##' the recommended sample size and corresponding values for population sensitivity (SeP),
-##' population specificity (SpP), N, c and pstar, a vector of SeP values
-##' and a vector of SpP values, for n = 1:N
-##' @keywords methods
-##' @export
-##' @examples 
-##' # examples for n.c.hp
-##' n.c.freecalc(120,0.95,c=5,se=0.9,sp=0.99,pstar=0.1, minSpH=0.9)[[1]]
-##' n.c.freecalc(65,0.95,c=5,se=0.95,sp=0.99,pstar=0.05, minSpH=0.9)
-n.c.freecalc<- function(N,sep=0.95,c=1,se,sp=1,pstar, minSpH=0.95) {
-  pa.int<- ifelse(pstar > 0 & pstar < 1, F, T)
-  SeH <- matrix(nrow=N, ncol=c)
-  SpH <- SeH
-  lastSeH <- -1
-  done<- F
-  for (n in 1:N) {
-    for (x in c:1) {
-      SeH[n, x] <- sep.freecalc(N,n,x,se,sp,pstar)
-      SpH[n, x] <-sph.binom(n, c, sp)
-      newSeH <- (SpH[n,x] >= minSpH)*SeH[n,x]
-      if ((newSeH>lastSeH)*!done) {
-        lastSeH <- newSeH
-        lastSpH <- SpH[n,x]
-        lastn <- n
-        lastc<- x
-        if (newSeH>=sep) done<- TRUE
+##' n.freecalc(65,0.95,sp=0.99,pstar=0.05, type1 = 0.05, type2 = 0.05)[[1]]
+##' n.freecalc(N=100, se=0.95,sp=0.99,pstar=0.05, type1 = 0.05, type2 = 0.05)[[1]]
+##' n.freecalc(N=200, se=0.95,sp=0.99,pstar=0.05, type1 = 0.05, type2 = 0.1)
+n.freecalc<- function(N, se, sp, pstar, type1 = 0.05, type2 = 0.05, pop.threshold = 10000, maxSS = 3200) {
+  method.lst<- c("Modified hypergeometric exact", "Simple Binomial")  
+  digits<- 4
+  pa.int<- ifelse(pstar > 0 & pstar < 1, F, T)  #
+  prev<- ifelse(pa.int, pstar/N, pstar)
+  dis<- ifelse(pa.int, pstar, max(1, round(pstar*N, 0)))
+  method<- ifelse(N > pop.threshold, 2, method)
+    N1<- min(N, maxSS)
+    brks<- c(50, 100, 1000, 5000, 10000, 100000, Inf)
+    steps<- c(5, 10, 50, 100, 200, 500)
+    step<- steps[which(N1 < brks)[1]]
+    ss<- seq(0, N1, by = step)
+    ss[1]<- 1
+    if (length(ss) == 1) ss[2]<- N1
+    cp<- 0
+    SpH<- 0
+    SeH<- 0
+    P1<- 0
+    success<- F
+    for (s in 1:length(ss)) {
+      c.p<- 0
+      Hspec<- 0
+      while (Hspec < 1-type2) {
+        c.p<- c.p+1                     # probability of observed result from diseas-free popn
+        Hspec<- sph.binom(ss[s], c.p, sp)
       }
-    }
-  }
-  results<- data.frame(n=lastn, SeP=lastSeH, SpP=lastSpH, N, c=lastc, pstar=pstar)
-  return(list("Suggested n"=results, SeP=SeH,SpP=SpH))
-}
+      cp[s]<- c.p
+      SpH[s]<- Hspec
+      if (identical(method, 2) || N > pop.threshold) {         # simple binomial
+        P1[s]<- 1-sep.binom.imperfect(ss[s], cp[s], se, sp, prev)
+      } else {                                               # modified hypergeometric exact
+        P1[s]<- 1-sep.freecalc(N,ss[s], cp[s],se,sp,prev)
+      }
+      SeH[s]<- 1-P1[s]
+      cp[s]<- cp[s]-1
+      if (P1[s] <= type1) {       
+          success<- T
+          n1<- ss[s]              
+          break
+      }      
+    }  # end of s loop
+    if (success) {
+        ss[(s+1):(s+step)]<- (ss[s-1]+1):(ss[s-1]+step)
+        for (x in 1:step) {
+            c.p<- 0
+            Hspec<- 0
+            while (Hspec < 1-type2) {
+              c.p<- c.p+1                     # probability of observed result from diseas-free popn
+              Hspec<- sph.binom(ss[s+x], c.p, sp)
+            }
+            cp[s+x]<- c.p
+            SpH[s+x]<- Hspec
+            if (identical(method, 2) || N > pop.threshold) {         # simple binomial
+              P1[s+x]<- 1-sep.binom.imperfect(ss[s+x], cp[s+x], se, sp, prev)
+            } else {                                               # modified hypergeometric exact
+              P1[s+x]<- 1-sep.freecalc(N,ss[s+x], cp[s+x],se,sp,prev)
+            }
+            SeH[s+x]<- 1-P1[s+x]
+            cp[s+x]<- cp[s+x]-1
+            if (P1[s+x] <= type1) {       
+                success<- T
+                n1<- ss[s+x]
+                break
+            }
+        } # end of x loop
+        res<- numeric(6)
+        names(res)<- c("Required sample size:", "Cut-point number of positives:", 
+        "Type I error:", "Type II error:", "Population-level sensitivity:", 
+        "Population-level specificity:")
+        res[1]<- n1
+        res[2]<- cp[s+x]
+        res[3]<- round(1-SeH[s+x], digits)
+        res[4]<- round(1-SpH[s+x], digits)
+        res[5]<- round(SeH[s+x], digits)
+        res[6]<- round(SpH[s+x], digits)
+        result<- list(res, "Interpretation" = paste("If a random sample of <b>", n1, "</b> units is taken from a population of <b>",
+                        N, "</b> and <b>", cp[s+x], "</b> or fewer reactors are found, the probability that the population is diseased at a prevalence of <b>",
+                        prev, "</b> is <b>", round(1-SeH[s+x], digits), ".", sep = ""),
+                    "Method" = method.lst[method])
+    } else {
+        result<- array("", dim = c(1, 1))
+        result[1,1]<- ifelse(identical(N1, N), "Unable to achieve required accuracy by sampling every unit",
+                          paste("Unable to achieve required accuracy by sampling every unit up to the maximum sample size of <b>", maxSS, "</b>.", sep = ""))
+    } # end of if/else
+    return(result)
+} # end of n.freecalc function
